@@ -11,9 +11,11 @@ project(Batches   VERSION 0.1.0
 		
 		
 #First we need to set the utils function for cmake
+include(CMake/GlobalOptions.cmake)
 include(CMake/CompilerWarnings.cmake)
 include(CMake/GlobalCompileOption.cmake)
 include(CMake/Utils.cmake)
+
 
 #Sanity checks 
 # Prevent building in the source directory 
@@ -21,8 +23,11 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
   message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there.\n")
 endif()
 
-#Then we load the global option
-include(CMake/GlobalOptions.cmake)
+
+if(ENABLE_UNIT_TESTING)
+	enable_testing()
+	verbose_message("***********Test are enabled**********")
+endif()
 
 	
 #Load ConanConfiguration

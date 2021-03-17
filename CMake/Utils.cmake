@@ -89,7 +89,6 @@ function(manage_target_options target_name headers sources)
 	endif()
 	
 	if(${${target_name}_ENABLE_UNIT_TESTING})
-		enable_testing()
 		message( STATUS "Build unit tests for the project. Tests should always be found in the test subfolder\n")
 		add_subdirectory(test)
 	endif()

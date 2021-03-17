@@ -9,9 +9,9 @@ option(ENABLE_CONAN "Enable the Conan package manager for all project." ON)
 option(ENABLE_VCPKG "Enable the Conan package manager for all project." OFF)
 
 #unit test
-option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." OFF)
+option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." ON)
 
-option(USE_GTEST "Use GTEST  for creating unit tests." OFF)
+option(USE_GTEST "Use GTEST  for creating unit tests." ON)
 #option(${PROJECT_NAME}_USE_GOOGLE_MOCK "Use the GoogleMock project for extending the unit tests." OFF)
 #option(${PROJECT_NAME}_USE_CATCH2 "Use the Catch2 project for creating unit tests." OFF)
 
@@ -31,10 +31,9 @@ set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
 #DEBUG
 option(VERBOSE_OUTPUT "Enable verbose output, allowing for a better understanding of each step taken." ON)
 
-#cache
+#ccache
 option(ENABLE_CCACHE "Enable the usage of CCache, in order to speed up build times." ON)
 find_program(CCACHE_FOUND ccache)
-
 if(CCACHE_FOUND)
     verbose_message("Found CCache so we use it !")
     set_property(GLOBAL PROPERTY RULE_LAUNCH_COMPILE ccache)

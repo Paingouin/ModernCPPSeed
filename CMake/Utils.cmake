@@ -8,18 +8,18 @@ endfunction()
 #we set the specific option for each target
 function(manage_targetOptions target_name headers sources)
 
-	if(${target_name}_BUILD_EXECUTABLE)
+	if(${${target_name}_BUILD_EXECUTABLE})
 		add_executable(
 			${target_name} 
 			${sources} 
 			${headers}
 		)
-	elseif(${target_name}_BUILD_HEADERS_ONLY)
+	elseif(${${target_name}_BUILD_HEADERS_ONLY})
 		add_library(
 			${target_name} 
 			INTERFACE
 			)
-	elseif(${target_name}_BUILD_STATIC_LIB)
+	elseif(${${target_name}_BUILD_STATIC_LIB})
 		add_library(
 			${target_name}
 			STATIC
@@ -40,7 +40,7 @@ function(manage_targetOptions target_name headers sources)
 	#  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
 
 	
-	if(${PROJECT_NAME}_BUILD_HEADERS_ONLY)
+	if(${${PROJECT_NAME}_BUILD_HEADERS_ONLY})
 		target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
 	else()
 		target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
@@ -63,7 +63,7 @@ function(manage_targetOptions target_name headers sources)
 		target_include_directories(${target_name} PUBLIC ${CONAN_INCLUDE_DIRS} ) 
 	endif()
 	
-	if(${target_name}_ENABLE_UNIT_TESTING)
+	if(${${target_name}_ENABLE_UNIT_TESTING})
 		enable_testing()
 		message("Build unit tests for the project. Tests should always be found in the test folder\n")
 		add_subdirectory(test)

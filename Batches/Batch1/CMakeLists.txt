@@ -8,10 +8,9 @@ set( headers
 	)
 	
 
-option(${PROJECT_NAME}_BUILD_EXECUTABLE  "If we want an execultable" ON)
+set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
 
-
-option(${PROJECT_NAME}_ENABLE_UNIT_TESTING "If we have a test unit in a folder named 'test'" OFF)
+set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
 
 #if not set, each of these will use the globals option in /CMake/GlobalOptions
 if(MSVC)

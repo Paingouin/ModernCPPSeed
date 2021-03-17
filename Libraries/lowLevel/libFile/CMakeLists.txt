@@ -7,11 +7,10 @@ set( headers
 		ofFile.h
 	)
 	
-option(${PROJECT_NAME}_BUILD_EXECUTABLE  "If we want an execultable" OFF)
-option(${PROJECT_NAME}_BUILD_HEADERS_ONLY  "If we want an header only library" OFF)
-option(${PROJECT_NAME}_BUILD_STATIC_LIB "If we want a static lib" ON)
 
-option(${PROJECT_NAME}_ENABLE_UNIT_TESTING "If we have a test unit in a folder named 'test'" OFF)
+set(${PROJECT_NAME}_BUILD_STATIC_LIB ON )
+
+set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
 
 manage_targetOptions(${PROJECT_NAME} ${headers} ${sources})
 

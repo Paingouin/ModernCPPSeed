@@ -83,19 +83,55 @@ set(GCC_LINKER_OPTION_RELEASE
 
 function(set_project_compile_options target_name)
 
-	if(MSVC)
-		target_compile_definitions(${target_name} PUBLIC 
-			${MSVC_DEFINE_OPTION}
-			$<IF:$<CONFIG:DEBUG>,${MSVC_DEFINE_OPTION_DEBUG},${MSVC_DEFINE_OPTION_RELEASE}>
-		 )
-		 
-		 target_compile_options(${target_name} PUBLIC 
+    set( DEFINE_OPTION  "")
+    set( COMPILE_OPTION "")
+	set( LINKER_OPTION  "")
+	#set global options
+	if(MSVC) 
+		set( DEFINE_OPTION 
+		     ${MSVC_DEFINE_OPTION}
+		     $<IF:$<CONFIG:DEBUG>,${MSVC_COMPILE_OPTION_DEBUG}
+					,${MSVC_COMPILE_OPTION_RELEASE}>
+			 )
+		set( COMPILE_OPTION 
 		     ${MSVC_COMPILE_OPTION}
-			 $<IF:$<CONFIG:DEBUG>,${MSVC_COMPILE_OPTION_DEBUG},${MSVC_COMPILE_OPTION_RELEASE}>
+		     $<IF:$<CONFIG:DEBUG>,${MSVC_COMPILE_OPTION_DEBUG}
+					,${MSVC_COMPILE_OPTION_RELEASE}>
+			 )
+			 
+	     set( LINKER_OPTION 
+		     ${MSVC_LINKER_OPTION}
+		     $<IF:$<CONFIG:DEBUG>,${MSVC_LINKER_OPTION_DEBUG}
+					,${MSVC_LINKER_OPTION_RELEASE}>
+			 )		 
+	endif()
+	
+	
+	#add user optionnal option
+	set( DEFINE_OPTION ${DEFINE_OPTION} 
+			${${PROJECT_NAME}_COMPILER_DEFINITION}
+			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_COMPILER_DEFINITION_DEBUG},${${PROJECT_NAME}_COMPILER_DEFINITION_RELEASE}>
+		)
+		
+	set( COMPILE_OPTION ${COMPILE_OPTION} 
+			${${PROJECT_NAME}_COMPILER_OPTIONS}
+			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_COMPILER_OPTIONS_DEBUG},${${PROJECT_NAME}_COMPILER_OPTIONS_RELEASE}>
+		)
+	set( LINKER_OPTION ${LINKER_OPTION} 
+			${${PROJECT_NAME}_COMPILER_DEFINITION}
+			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_LINKER_DEFINITION_DEBUG},${${PROJECT_NAME}_LINKER_OPTIONS_RELEASE}>
+		)
+	
+	
+	#Add them to the current target
+	target_compile_definitions(${target_name} PUBLIC 
+			${DEFINE_OPTION}
 		 )
 		 
-	
+	target_compile_options(${target_name} PUBLIC 
+		     ${COMPILE_OPTION} 
+			 ${LINKER_OPTION}
+		 )
 
-	endif()
 
 endfunction()

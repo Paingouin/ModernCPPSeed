@@ -30,7 +30,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-manage_targetOptions(${PROJECT_NAME} ${headers} ${sources})
+manage_target_options(${PROJECT_NAME} ${headers} ${sources})
 
 #you can still now do things like :
 #target_link_libraries(${PROJECT_NAME}  CONAN_PKG::Thot)

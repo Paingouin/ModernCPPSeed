@@ -77,9 +77,6 @@ set(GCC_LINKER_OPTION_RELEASE
 
 )
 
-#AIX
-
-
 
 function(set_project_compile_options target_name)
 

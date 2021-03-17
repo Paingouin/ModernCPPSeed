@@ -15,7 +15,7 @@ set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
 
 set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
 
-#if not set, each of these will use the globals option in /CMake/GlobalOptions
+#You can also add your own compiler/linker option and definition
 if(MSVC)
 set(${PROJECT_NAME}_COMPILER_DEFINITION "")
 set(${PROJECT_NAME}_COMPILER_DEFINITION_DEBUG "")
@@ -34,7 +34,7 @@ endif()
 
 set(${PROJECT_NAME}_LINKER_DEPENDECY "ofFile")
 
-manage_targetOptions(${PROJECT_NAME} ${headers} ${sources})
+manage_target_options(${PROJECT_NAME} ${headers} ${sources})
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

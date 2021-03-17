@@ -6,7 +6,7 @@ endfunction()
 
 
 #we set the specific option for each target
-function(manage_targetOptions target_name headers sources)
+function(manage_target_options target_name headers sources)
 
 	if(${${target_name}_BUILD_EXECUTABLE})
 		add_executable(

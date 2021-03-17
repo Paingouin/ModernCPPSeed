@@ -49,10 +49,10 @@ jobs:
 #        cd ../Particles
 
     - name: configure
-      run: cmake -B build -DCMAKE_INSTALL_PREFIX=./install
+      run: cmake -B build -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_BUILD_TYPE=Release
       
     - name: build
-      run: cmake --build build --config $BUILD_TYPE -j4
+      run: cmake --build build --config Release -j4
 
     #- name: run tests
     #  run: |

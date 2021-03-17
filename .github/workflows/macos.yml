@@ -49,7 +49,7 @@ jobs:
 #        cd ../Particles
 
     - name: configure
-      run: cmake -Bbuild -DCMAKE_INSTALL_PREFIX=$GITHUB_WORKSPACE/$INSTALL_LOCATION -DCMAKE_BUILD_TYPE=$BUILD_TYPE
+      run: cmake -S . -DCMAKE_INSTALL_PREFIX=../install
       
     - name: build
       run: cmake --build build --config $BUILD_TYPE -j4

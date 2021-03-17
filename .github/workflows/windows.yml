@@ -48,7 +48,7 @@ jobs:
 #        cd ../Particles
 #        
     - name: configure
-      run: cmake . -B build -DCMAKE_INSTALL_PREFIX=../install
+      run: cmake -B build -DCMAKE_INSTALL_PREFIX=./install
       
     - name: build
       run: cmake --build build --config "$env:BUILD_TYPE" -j4

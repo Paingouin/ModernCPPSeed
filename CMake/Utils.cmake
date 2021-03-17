@@ -92,5 +92,33 @@ function(manage_target_options target_name headers sources)
 		add_subdirectory(test)
 	endif()
 	
+	
+	install(
+		TARGETS
+			${target_name}
+		EXPORT
+			${target_name}Targets
+		LIBRARY DESTINATION
+			${CMAKE_INSTALL_LIBDIR}
+		RUNTIME DESTINATION
+			${CMAKE_INSTALL_BINDIR}
+		ARCHIVE DESTINATION
+			${CMAKE_INSTALL_LIBDIR}
+		INCLUDES DESTINATION
+			include
+		PUBLIC_HEADER DESTINATION
+			include
+		)
 
+	install(
+		EXPORT 
+			${target_name}Targets
+		FILE		
+			${target_name}Targets.cmake
+		NAMESPACE
+			${target_name}::
+		DESTINATION
+			${CMAKE_INSTALL_LIBDIR}/cmake/${target_name}
+		)
+	
 endfunction()

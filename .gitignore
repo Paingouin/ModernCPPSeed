@@ -5,6 +5,7 @@ CMakeCache.*
 CMakeFiles/*
 [Dd]ocs/*
 [Tt]esting/*
+[Ii]nstall/*
 
 ### VisualStudioCode ###
 .vscode/*

@@ -9,8 +9,7 @@ set( headers
 	
 
 option(${PROJECT_NAME}_BUILD_EXECUTABLE  "If we want an execultable" ON)
-option(${PROJECT_NAME}_BUILD_HEADERS_ONLY  "If we want an header only" OFF)
-option(${PROJECT_NAME}_BUILD_STATIC_LIB "If we want a static lib" OFF)
+
 
 option(${PROJECT_NAME}_ENABLE_UNIT_TESTING "If we have a test unit in a folder named 'test'" OFF)
 

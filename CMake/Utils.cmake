@@ -5,8 +5,6 @@ function(verbose_message content)
 endfunction()
 
 
-
-
 #we set the specific option for each target
 function(manage_targetOptions target_name headers sources)
 

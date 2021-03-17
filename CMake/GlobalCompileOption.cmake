@@ -118,20 +118,19 @@ function(set_project_compile_options target_name)
 			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_COMPILER_OPTIONS_DEBUG},${${PROJECT_NAME}_COMPILER_OPTIONS_RELEASE}>
 		)
 	set( LINKER_OPTION ${LINKER_OPTION} 
-			${${PROJECT_NAME}_COMPILER_DEFINITION}
-			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_LINKER_DEFINITION_DEBUG},${${PROJECT_NAME}_LINKER_OPTIONS_RELEASE}>
+			${${PROJECT_NAME}_LINKER_DEFINITION}
+			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_LINKER_OPTIONS_DEBUG},${${PROJECT_NAME}_LINKER_OPTIONS_RELEASE}>
 		)
 	
 	
 	#Add them to the current target
 	target_compile_definitions(${target_name} PUBLIC 
-			${DEFINE_OPTION}
+			 ${DEFINE_OPTION}
 		 )
 		 
 	target_compile_options(${target_name} PUBLIC 
 		     ${COMPILE_OPTION} 
 			 ${LINKER_OPTION}
 		 )
-
 
 endfunction()

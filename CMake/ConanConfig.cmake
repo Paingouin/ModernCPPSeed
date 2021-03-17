@@ -19,7 +19,7 @@ if(ENABLE_CONAN)
    # message(STATUS "Cmake-Conan downloaded succesfully.")
   #endif()
 
-  include(${CMAKE_SOURCE_DIR}/cmake/conan.cmake)
+  include(${CMAKE_SOURCE_DIR}/CMake/conan.cmake)
 
   #conan_add_remote(NAME bincrafters
   #    URL

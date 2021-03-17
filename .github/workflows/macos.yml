@@ -55,9 +55,9 @@ jobs:
       run: cmake --build build --config $BUILD_TYPE -j4
 
     - name: run tests
-      run: |
-        cd build
-        ctest -C $BUILD_TYPE -VV
+      #run: |
+      #  cd build
+      #  ctest -C $BUILD_TYPE -VV
 
     - name: install project
-      run: cmake --build build --target install --config Release 
+      #run: cmake --build build --target install --config Release 

@@ -54,10 +54,10 @@ jobs:
       run: cmake --build build --config "$env:BUILD_TYPE" -j4
 
     - name: run tests
-      run: |
-        cd build
-        ctest -C "$env:BUILD_TYPE" -VV
+      #run: |
+      #  cd build
+      #  ctest -C "$env:BUILD_TYPE" -VV
         
     - name: install project
-      run: cmake --build build --target install --config Release 
+      #run: cmake --build build --target install --config Release 
 

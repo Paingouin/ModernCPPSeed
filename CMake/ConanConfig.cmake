@@ -28,7 +28,7 @@ if(ENABLE_CONAN)
 	#	  0
   #)
 
-  verbose_message('Call Conan with'${CONAN_FILE})
+  verbose_message("Call Conan with ${CONAN_FILE}")
   
   conan_cmake_run(
     REQUIRES
@@ -45,4 +45,5 @@ if(ENABLE_CONAN)
   )
 
   verbose_message("Conan is setup and all requires have been installed.")
+  
 endif()

@@ -5,6 +5,8 @@ function(verbose_message content)
 endfunction()
 
 
+
+
 #we set the specific option for each target
 function(manage_targetOptions target_name headers sources)
 
@@ -38,12 +40,18 @@ function(manage_targetOptions target_name headers sources)
 	#  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D
 	#  target_compile_options(${PROJECT_NAME} PRIVATE -O0 -g -fprofile-arcs -ftest-coverage)
 	#  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
-
 	
-	if(${${PROJECT_NAME}_BUILD_HEADERS_ONLY})
-		target_compile_features(${PROJECT_NAME} INTERFACE cxx_std_11)
+	
+	set_project_warnings(${target_name})
+	verbose_message("Finished set project warning for ${target_name}")
+	
+	set_project_compile_options(${target_name})
+	verbose_message("Finished set compile options for ${target_name}")
+	
+	if(${${target_name}_BUILD_HEADERS_ONLY})
+		target_compile_features(${target_name} INTERFACE cxx_std_11)
 	else()
-		target_compile_features(${PROJECT_NAME} PUBLIC cxx_std_11)
+		target_compile_features(${target_name} PUBLIC cxx_std_11)
 	endif()
 	
 	target_include_directories(
@@ -54,10 +62,10 @@ function(manage_targetOptions target_name headers sources)
 	)
 	
 	
-	verbose_message("Finished set include_directories for target ${target_name}")
+	verbose_message("Finished set include_directories for ${target_name}")
 
 	
-	target_link_libraries(${PROJECT_NAME} PUBLIC ${${PROJECT_NAME}_LINKER_DEPENDECY})
+	target_link_libraries(${target_name} PUBLIC ${${target_name}_LINKER_DEPENDECY})
 	 
 	if(ENABLE_CONAN)
 		target_include_directories(${target_name} PUBLIC ${CONAN_INCLUDE_DIRS} ) 
@@ -65,11 +73,9 @@ function(manage_targetOptions target_name headers sources)
 	
 	if(${${target_name}_ENABLE_UNIT_TESTING})
 		enable_testing()
-		message("Build unit tests for the project. Tests should always be found in the test folder\n")
+		message( STATUS "Build unit tests for the project. Tests should always be found in the test subfolder\n")
 		add_subdirectory(test)
 	endif()
-	
-	
 	
 
 endfunction()

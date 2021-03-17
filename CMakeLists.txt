@@ -11,9 +11,9 @@ project(Batches   VERSION 0.1.0
 		
 		
 #First we need to set the utils function for cmake
+include(CMake/CompilerWarnings.cmake)
+include(CMake/GlobalCompileOption.cmake)
 include(CMake/Utils.cmake)
-#include(cmake/CompilerWarnings.cmake)
-
 
 #Sanity checks 
 # Prevent building in the source directory 

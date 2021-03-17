@@ -1,14 +1,17 @@
 
 #Option are set in this file by default. You can change it with the -D argument in the cmake command line
 
+#Compile
+option(WARNINGS_AS_ERRORS "Enable the warning as error for all project" OFF)
+
 #package
-option(ENABLE_CONAN "Enable the Conan package manager for this project." ON)
-option(ENABLE_VCPKG "Enable the Conan package manager for this project." OFF)
+option(ENABLE_CONAN "Enable the Conan package manager for all project." ON)
+option(ENABLE_VCPKG "Enable the Conan package manager for all project." OFF)
 
 #unit test
-option(ENABLE_UNIT_TESTING "Enable unit tests for the projects (from the `test` subfolder)." OFF)
+option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." OFF)
 
-option(USE_GTEST "Use the GoogleTest project for creating unit tests." OFF)
+option(USE_GTEST "Use GTEST  for creating unit tests." OFF)
 #option(${PROJECT_NAME}_USE_GOOGLE_MOCK "Use the GoogleMock project for extending the unit tests." OFF)
 #option(${PROJECT_NAME}_USE_CATCH2 "Use the Catch2 project for creating unit tests." OFF)
 

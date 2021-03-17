@@ -5,6 +5,8 @@ function(verbose_message content)
 endfunction()
 
 
+include(GoogleTest)
+
 #we set the specific option for each target
 function(manage_target_options target_name headers sources)
 

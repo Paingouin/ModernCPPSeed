@@ -1,17 +1,19 @@
-project (ofFile CXX)
+project (Batch4Test CXX)
 
 set( sources
-		ofFile.cpp
+		Batch4_TestMain.cpp
 	)
 set( headers
-		ofFile.h
+		../Batch4.h
 	)
 	
 
-set(${PROJECT_NAME}_BUILD_STATIC_LIB ON )
+set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
+
+set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
+
 
 set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
-
 
 #You can also add your own compiler/linker option and definition
 if(MSVC)
@@ -30,8 +32,19 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
+set(${PROJECT_NAME}_LINKER_DEPENDECY ofBatch CONAN_PKG::gtest)
+
 manage_target_options(${PROJECT_NAME} ${headers} ${sources})
 
-#you can still now do things like :
-#target_link_libraries(${PROJECT_NAME}  CONAN_PKG::Thot)
-#but please keep it clean
+#We need to specify that this is a test
+gtest_add_tests(
+  TARGET 
+    ${PROJECT_NAME}
+)
+
+
+
+
+#  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D
+#  target_compile_options(${PROJECT_NAME} PRIVATE -O0 -g -fprofile-arcs -ftest-coverage)
+#  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)

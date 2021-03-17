@@ -1,1 +1,2 @@
 add_subdirectory(libFile)
+add_subdirectory(libInput)

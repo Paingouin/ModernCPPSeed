@@ -2,7 +2,7 @@
 
 #include <string>
 
-struct File
+struct Input
 {
 	std::string filename;
 };

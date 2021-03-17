@@ -48,6 +48,24 @@ function(manage_targetOptions target_name headers sources)
 	set_project_compile_options(${target_name})
 	verbose_message("Finished set compile options for ${target_name}")
 	
+	## Export all symbols when building a shared library
+	#if(${PROJECT_NAME}_BUILD_SHARED_LIBS)
+	#	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
+	#	set(CMAKE_CXX_VISIBILITY_PRESET hidden)
+	#	set(CMAKE_VISIBILITY_INLINES_HIDDEN 1)
+	#endif()
+	#
+	##LTO
+	#if(${PROJECT_NAME}_ENABLE_LTO)
+	#	include(CheckIPOSupported)
+	#	check_ipo_supported(RESULT result OUTPUT output)
+	#	if(result)
+	#		set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+	#	else()
+	#		message(SEND_ERROR "IPO is not supported: ${output}.")
+	#	endif()
+	#endif()
+	
 	if(${${target_name}_BUILD_HEADERS_ONLY})
 		target_compile_features(${target_name} INTERFACE cxx_std_11)
 	else()
@@ -60,7 +78,6 @@ function(manage_targetOptions target_name headers sources)
 		$<INSTALL_INTERFACE:include>    
 		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
 	)
-	
 	
 	verbose_message("Finished set include_directories for ${target_name}")
 

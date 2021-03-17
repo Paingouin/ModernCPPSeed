@@ -36,7 +36,7 @@ set(${PROJECT_NAME}_LINKER_RELEASE_OPTIONS "")
 endif()
 
 
-set(${PROJECT_NAME}_LINKER_DEPENDECY "ofFile")
+set(${PROJECT_NAME}_LINKER_DEPENDECY "")
 
 
 manage_targetOptions(${PROJECT_NAME} ${headers} ${sources})

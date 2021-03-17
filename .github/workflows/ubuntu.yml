@@ -50,7 +50,7 @@ jobs:
 #        cd ../Particles
 
     - name: configure
-      run: cmake -S . -DCMAKE_INSTALL_PREFIX=../install
+      run: cmake . -DCMAKE_INSTALL_PREFIX=../install
       
     - name: build
       run: cmake --build build --config $BUILD_TYPE -j4

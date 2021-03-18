@@ -10,7 +10,7 @@
 ## Build Tools
 Inside Tools/Builders
 
-## Hot-Loading
+## Hot-Loading (Windows Only for the moment)
 To test the hot-loading, compile the batch-hot-loading, launch it manually (in the folder build/bin/Debug) and let it run.
 Open the project ofHotLoad
 Change the content of the method loadedFunction and build the project.

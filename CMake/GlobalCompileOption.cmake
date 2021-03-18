@@ -15,15 +15,16 @@ set(MSVC_COMPILE_OPTION_RELEASE
 )
 
 set(MSVC_DEFINE_OPTION
-/D_WINDOWS /DWIN32 /D_AFXDLL /D_64BITS /DNO_WARN_MBCS_MFC_DEPRECATION /D_CRT_SECURE_NO_WARNINGS /DXERCES311
+_WINDOWS WIN32 _AFXDLL 
+_64BITS NO_WARN_MBCS_MFC_DEPRECATION _CRT_SECURE_NO_WARNINGS XERCES311
 )
 
 set(MSVC_DEFINE_OPTION_DEBUG
-/D_DEBUG /D_RWCONFIG_15d
+_DEBUG _RWCONFIG_15d
 )
 
 set(MSVC_DEFINE_OPTION_RELEASE
- /DNDEBUG /D_RWCONFIG_12d
+ NDEBUG _RWCONFIG_12d
 )
 
 set(MSVC_LINKER_OPTION
@@ -54,15 +55,15 @@ set(GCC_COMPILE_OPTION_RELEASE
 )
 
 set(GCC_DEFINE_OPTION
--D_LINUX -DXERCES311
+_LINUX XERCES311
 )
 
 set(GCC_DEFINE_OPTION_DEBUG
--D_RWCONFIG_15d -D_DEBUG
+_RWCONFIG_15d _DEBUG
 )
 
 set(GCC_DEFINE_OPTION_RELEASE
- -D_RWCONFIG_12d
+ _RWCONFIG_12d
 )
 
 set(GCC_LINKER_OPTION
@@ -87,8 +88,8 @@ function(set_project_compile_options target_name)
 	if(MSVC) 
 		set( DEFINE_OPTION 
 		     ${MSVC_DEFINE_OPTION}
-		     $<IF:$<CONFIG:DEBUG>,${MSVC_COMPILE_OPTION_DEBUG}
-					,${MSVC_COMPILE_OPTION_RELEASE}>
+		     $<IF:$<CONFIG:DEBUG>,${MSVC_DEFINE_OPTION_DEBUG}
+					,${MSVC_DEFINE_OPTION_RELEASE}>
 			 )
 		set( COMPILE_OPTION 
 		     ${MSVC_COMPILE_OPTION}
@@ -121,11 +122,11 @@ function(set_project_compile_options target_name)
 	
 	
 	#Add them to the current target
-	target_compile_definitions(${target_name} PUBLIC 
+	target_compile_definitions(${target_name} PRIVATE 
 			 ${DEFINE_OPTION}
 		 )
 		 
-	target_compile_options(${target_name} PUBLIC 
+	target_compile_options(${target_name} PRIVATE 
 		     ${COMPILE_OPTION} 
 			 ${LINKER_OPTION}
 		 )

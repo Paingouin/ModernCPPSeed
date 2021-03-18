@@ -1,19 +1,17 @@
-project (Batch_HotLoading_Exemple CXX)
+project (ofHotLoad CXX)
 
 set( sources
-		Batch5Main.cpp
+		ofHotLoad.cpp
 	)
 set( headers
-		Batch5.h
+		ofHotLoad.h
 	)
 	
 
-set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
-
-set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
-
+set(${PROJECT_NAME}_BUILD_STATIC_LIB OFF )
 
 set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
+
 
 #You can also add your own compiler/linker option and definition
 if(MSVC)
@@ -32,11 +30,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDECY ofHotLoad)
+set(${PROJECT_NAME}_LINKER_DEPENDECY "")
 
 manage_target_options(${PROJECT_NAME} ${headers} ${sources})
 
-
-#  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D
-#  target_compile_options(${PROJECT_NAME} PRIVATE -O0 -g -fprofile-arcs -ftest-coverage)
-#  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+#you can still now do things like :
+#target_link_libraries(${PROJECT_NAME}  CONAN_PKG::Thot)
+#but please keep it clean

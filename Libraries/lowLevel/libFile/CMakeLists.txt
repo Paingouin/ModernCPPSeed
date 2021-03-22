@@ -30,6 +30,8 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
+set(${PROJECT_NAME}_LINKER_DEPENDECY )
+
 manage_target_options(${PROJECT_NAME} ${headers} ${sources})
 
 #you can still now do things like :

@@ -32,7 +32,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDECY ofHotLoad)
+set(${PROJECT_NAME}_LINKER_DEPENDECY ofHotLoad )
 
 manage_target_options(${PROJECT_NAME} ${headers} ${sources})
 

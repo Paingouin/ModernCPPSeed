@@ -17,7 +17,29 @@ option(USE_GTEST "Use GTEST  for creating unit tests." ON)
 
 # Static analyzers
 option(ENABLE_CLANG_TIDY "Enable static analysis with Clang-Tidy." OFF)
+if(ENABLE_CLANG_TIDY)
+  find_program(CLANGTIDY clang-tidy)
+  if(CLANGTIDY)
+    set(CMAKE_CXX_CLANG_TIDY ${CLANGTIDY} -extra-arg=-Wno-unknown-warning-option)
+    message("Clang-Tidy finished setting up.")
+  else()
+    message(SEND_ERROR "Clang-Tidy requested but executable not found.")
+  endif()
+endif()
+
+
 option(ENABLE_CPPCHECK "Enable static analysis with Cppcheck." OFF)
+if(ENABLE_CPPCHECK)
+  find_program(CPPCHECK cppcheck)
+  if(CPPCHECK)
+    set(CMAKE_CXX_CPPCHECK ${CPPCHECK} --suppress=missingInclude --enable=all
+                           --inline-suppr --inconclusive -i ${CMAKE_SOURCE_DIR}/src)
+    message("Cppcheck finished setting up.")
+  else()
+    message(SEND_ERROR "Cppcheck requested but executable not found.")
+  endif()
+endif()
+
 
 #Code Coverage
 option(ENABLE_CODE_COVERAGE "Enable code coverage through GCC." OFF)
@@ -40,7 +62,18 @@ if(CCACHE_FOUND)
     set_property(GLOBAL PROPERTY RULE_LAUNCH_LINK ccache)
 endif()
 
-
+##LTO
+option(${PROJECT_NAME}_ENABLE_LTO "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)." OFF)
+if(ENABLE_LTO)
+	include(CheckIPOSupported)
+	check_ipo_supported(RESULT result OUTPUT output)
+	if(result)
+		set(CMAKE_INTERPROCEDURAL_OPTIMIZATION TRUE)
+	else()
+		message(SEND_ERROR "IPO is not supported: ${output}.")
+	endif()
+endif()
+	
 # Set the output path for bin and lib
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)

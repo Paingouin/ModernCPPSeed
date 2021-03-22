@@ -4,7 +4,10 @@
 # lable.md
 # Courtesy of Jason Turner
 
-function(set_project_warnings project_name)
+function(configure_global_warnings)
+
+  add_library(project_global_warnings INTERFACE)
+
   set(MSVC_WARNINGS
       /W4     # Baseline reasonable warnings
       /w14242 # 'identifier': conversion from 'type1' to 'type1', possible loss
@@ -86,14 +89,7 @@ function(set_project_warnings project_name)
   else()
     message(AUTHOR_WARNING "No compiler warnings set for '${CMAKE_CXX_COMPILER_ID}' compiler.")
   endif()
+  
+  target_compile_options(project_global_warnings INTERFACE ${PROJECT_WARNINGS})
 
-  if(${${PROJECT_NAME}_BUILD_HEADERS_ONLY})
-        target_compile_options(${project_name} INTERFACE ${PROJECT_WARNINGS})
-  else()
-        target_compile_options(${project_name} PUBLIC ${PROJECT_WARNINGS})
-  endif()
-
-  if(NOT TARGET ${project_name})
-    message(AUTHOR_WARNING "${project_name} is not a target, thus no compiler warning were added.")
-  endif()
 endfunction()

@@ -12,8 +12,16 @@ project(Batches   VERSION 0.1.0
 		
 #First we need to set the utils function for cmake
 include(CMake/GlobalOptions.cmake)
-include(CMake/CompilerWarnings.cmake)
+
 include(CMake/GlobalCompileOption.cmake)
+configure_global_compile_options()
+
+include(CMake/GlobalCompileWarnings.cmake)
+configure_global_warnings()
+
+
+
+
 include(CMake/Utils.cmake)
 
 
@@ -23,7 +31,7 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
   message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there.\n")
 endif()
 
-
+	
 if(ENABLE_UNIT_TESTING)
 	enable_testing()
 	verbose_message("***********Test are enabled**********")
@@ -43,13 +51,6 @@ add_subdirectory(Batches)
 #                       ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 #					COMMAND ${CMAKE_COMMAND} -E copy_directory
 #                       ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources )
-
-
-
-
-# Install library for easy downstream inclusion  (move to bin the exe etc..)
-include(GNUInstallDirs)
-
 
 
 

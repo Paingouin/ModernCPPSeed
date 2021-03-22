@@ -1,20 +1,20 @@
 
 
 ######---------MSVC-----------#######
-set(MSVC_COMPILE_OPTION
+set(MSVC_COMPILE_OPTION ${MSVC_COMPILE_OPTION}
 /FS /Gy /Zi /MP /GS
 /Zc:wchar_t /Gm- /fp:precise /WX- /Gd /EHa /Zc:forScope /nologo /wd"4251"
 )
 
-set(MSVC_COMPILE_OPTION_DEBUG
+set(MSVC_COMPILE_OPTION_DEBUG ${MSVC_COMPILE_OPTION_DEBUG}
 /Od /RTC1 
 )
 
-set(MSVC_COMPILE_OPTION_RELEASE
+set(MSVC_COMPILE_OPTION_RELEASE ${MSVC_COMPILE_OPTION_RELEASE}
 /O2 /GF /Ob1 /EHa /GF
 )
 
-set(MSVC_DEFINE_OPTION
+set(MSVC_DEFINE_OPTION ${MSVC_DEFINE_OPTION}
 _WINDOWS WIN32 _AFXDLL 
 _64BITS NO_WARN_MBCS_MFC_DEPRECATION _CRT_SECURE_NO_WARNINGS XERCES311
 )
@@ -79,8 +79,10 @@ set(GCC_LINKER_OPTION_RELEASE
 )
 
 
-function(set_project_compile_options target_name)
+function(configure_global_compile_options)
 
+	add_library(project_global_options INTERFACE)
+	
     set( DEFINE_OPTION  "")
     set( COMPILE_OPTION "")
 	set( LINKER_OPTION  "")
@@ -101,32 +103,15 @@ function(set_project_compile_options target_name)
 		     ${MSVC_LINKER_OPTION}
 		     $<IF:$<CONFIG:DEBUG>,${MSVC_LINKER_OPTION_DEBUG}
 					,${MSVC_LINKER_OPTION_RELEASE}>
-			 )		 
+			 )	 
 	endif()
 	
-	
-	#add user optionnal option
-	set( DEFINE_OPTION ${DEFINE_OPTION} 
-			${${PROJECT_NAME}_COMPILER_DEFINITION}
-			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_COMPILER_DEFINITION_DEBUG},${${PROJECT_NAME}_COMPILER_DEFINITION_RELEASE}>
-		)
-		
-	set( COMPILE_OPTION ${COMPILE_OPTION} 
-			${${PROJECT_NAME}_COMPILER_OPTIONS}
-			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_COMPILER_OPTIONS_DEBUG},${${PROJECT_NAME}_COMPILER_OPTIONS_RELEASE}>
-		)
-	set( LINKER_OPTION ${LINKER_OPTION} 
-			${${PROJECT_NAME}_LINKER_DEFINITION}
-			$<IF:$<CONFIG:DEBUG>,${${PROJECT_NAME}_LINKER_OPTIONS_DEBUG},${${PROJECT_NAME}_LINKER_OPTIONS_RELEASE}>
-		)
-	
-	
-	#Add them to the current target
-	target_compile_definitions(${target_name} PRIVATE 
+	#Add them to the global project target
+	target_compile_definitions(project_global_options INTERFACE 
 			 ${DEFINE_OPTION}
 		 )
 		 
-	target_compile_options(${target_name} PRIVATE 
+	target_compile_options(project_global_options INTERFACE 
 		     ${COMPILE_OPTION} 
 			 ${LINKER_OPTION}
 		 )

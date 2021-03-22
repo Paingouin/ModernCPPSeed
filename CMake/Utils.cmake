@@ -95,7 +95,6 @@ function(manage_target_options target_name headers sources)
 			${${target_name}_COMPILER_DEFINITION}
 			$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_DEFINITION_DEBUG},${${target_name}_COMPILER_DEFINITION_RELEASE}>
 		)
-		
 	set( COMPILE_OPTION ${COMPILE_OPTION} 
 			${${target_name}_COMPILER_OPTIONS}
 			$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_OPTIONS_DEBUG},${${target_name}_COMPILER_OPTIONS_RELEASE}>
@@ -123,7 +122,6 @@ function(manage_target_options target_name headers sources)
 	#	target_include_directories(${target_name} PUBLIC ${CONAN_INCLUDE_DIRS} ) 
 	#endif()
 		
-	
 	if(${${target_name}_ENABLE_UNIT_TESTING})
 		message( STATUS "Build unit tests for the project. Tests should always be found in the test subfolder\n")
 		add_subdirectory(test)

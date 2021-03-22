@@ -42,7 +42,6 @@ add_test(
 )
 
 
-
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D
 #  target_compile_options(${PROJECT_NAME} PRIVATE -O0 -g -fprofile-arcs -ftest-coverage)
 #  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)

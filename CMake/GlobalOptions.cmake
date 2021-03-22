@@ -1,4 +1,3 @@
-
 #Option are set in this file by default. You can change it with the -D argument in the cmake command line
 
 #Compile
@@ -6,7 +5,7 @@ option(WARNINGS_AS_ERRORS "Enable the warning as error for all project" OFF)
 
 #package
 option(ENABLE_CONAN "Enable the Conan package manager for all project." ON)
-option(ENABLE_VCPKG "Enable the Conan package manager for all project." OFF)
+#option(ENABLE_VCPKG "Enable the Conan package manager for all project." OFF)
 
 #unit test
 option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." ON)
@@ -43,9 +42,30 @@ endif()
 
 #Code Coverage
 option(ENABLE_CODE_COVERAGE "Enable code coverage through GCC." OFF)
+# target_compile_options(project_options INTERFACE --coverage -O0 -g)
+# target_link_libraries(project_options INTERFACE --coverage)
+# Setup code coverage if enabled
+#if (ENABLE_CODE_COVERAGE)
+#  target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
+#  target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -fprofile-arcs -ftest-coverage)
+#  verbose_message("Code coverage is enabled and provided with GCC.")
+#endif()
+
 
 #Doxygen
 option(ENABLE_DOXYGEN "Enable Doxygen documentation builds of source." OFF)
+if(ENABLE_DOXYGEN)
+    set(DOXYGEN_CALLER_GRAPH YES)
+    set(DOXYGEN_CALL_GRAPH YES)
+    set(DOXYGEN_EXTRACT_ALL YES)
+    set(DOXYGEN_OUTPUT_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/docs)
+    
+    find_package(Doxygen REQUIRED dot)
+    doxygen_add_docs(doxygen-docs ${PROJECT_SOURCE_DIR})
+
+    verbose_message("Doxygen has been setup and documentation is now available.")
+endif()
+
 
 # Generate compile_commands.json for clang based tools
 set(CMAKE_EXPORT_COMPILE_COMMANDS ON)
@@ -63,7 +83,7 @@ if(CCACHE_FOUND)
 endif()
 
 ##LTO
-option(${PROJECT_NAME}_ENABLE_LTO "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)." OFF)
+option(ENABLE_LTO "Enable Interprocedural Optimization, aka Link Time Optimization (LTO)." OFF)
 if(ENABLE_LTO)
 	include(CheckIPOSupported)
 	check_ipo_supported(RESULT result OUTPUT output)
@@ -78,7 +98,17 @@ endif()
 set(CMAKE_RUNTIME_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_LIBRARY_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)
 set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/lib)
+
+
 #set(VS_DEBUGGER_WORKING_DIRECTORY   ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE})
 #set(CMAKE_INSTALL_LIBDIR 			lib)
 #set(CMAKE_INSTALL_BINDIR			bin)
 #set(CMAKE_INSTALL_INCLUDEDIR		include)
+
+##if (${FORCE_COLORED_OUTPUT})
+#    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")
+#        target_compile_options (project_options INTERFACE -fdiagnostics-color=always)
+#    elseif ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "Clang")
+#        target_compile_options (project_options INTERFACE -fcolor-diagnostics)
+#    endif ()
+#endif ()

@@ -19,7 +19,7 @@ include(GoogleTest)
 include(CMakePackageConfigHelpers)
 # Install library for easy downstream inclusion  (move to bin the exe etc..)
 include(GNUInstallDirs)
-
+include(InstallRequiredSystemLibraries)
 
 #we set the specific option for each target
 function(manage_target_options target_name headers sources)

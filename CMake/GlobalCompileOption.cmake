@@ -113,7 +113,7 @@ function(configure_global_compile_options)
 		set( COMPILE_OPTION 
 		     ${GCC_COMPILE_OPTION}
 		     $<IF:$<CONFIG:DEBUG>,${GCC_COMPILE_OPTION_DEBUG}
-					,${MSVC_COMPILE_OPTION_RELEASE}>
+					,${GCC_COMPILE_OPTION_RELEASE}>
 			 )
 			 
 	     set( LINKER_OPTION 

@@ -20,8 +20,6 @@ include(CMake/GlobalCompileWarnings.cmake)
 configure_global_warnings()
 
 
-
-
 include(CMake/Utils.cmake)
 
 
@@ -44,6 +42,8 @@ include(CMake/ConanConfig.cmake)
 
 add_subdirectory(Libraries)
 add_subdirectory(Batches)
+
+
 
 #If build correctly, copy the resources forlder to the binary dir 
 #add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

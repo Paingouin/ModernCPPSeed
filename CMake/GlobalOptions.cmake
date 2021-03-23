@@ -12,7 +12,7 @@ option(ENABLE_CONAN "Enable the Conan package manager for all project." ON)
 #option(ENABLE_VCPKG "Enable the Conan package manager for all project." OFF)
 
 #unit test
-option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." ON)
+option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." OFF)
 
 option(USE_GTEST "Use GTEST  for creating unit tests." ON)
 #option(${PROJECT_NAME}_USE_GOOGLE_MOCK "Use the GoogleMock project for extending the unit tests." OFF)
@@ -53,6 +53,12 @@ option(ENABLE_CODE_COVERAGE "Enable code coverage through GCC." OFF)
 #  target_compile_options(${CMAKE_PROJECT_NAME} PUBLIC -O0 -g -fprofile-arcs -ftest-coverage)
 #  target_link_options(${CMAKE_PROJECT_NAME} PUBLIC -fprofile-arcs -ftest-coverage)
 #  verbose_message("Code coverage is enabled and provided with GCC.")
+#find_program(GCOV "gcov" DOC "Coverage tool")
+  #message(STATUS ${GCOV})
+  #find_program(GCOVR "gcovr" DOC "Coverate report tool")
+#
+  #set(coverage_report_dir "${CMAKE_BINARY_DIR}/coverage")
+  #file(MAKE_DIRECTORY ${coverage_report_dir})	
 #endif()
 
 
@@ -99,10 +105,15 @@ if(ENABLE_LTO)
 endif()
 	
 # Set the output path for bin and lib
-set(CMAKE_RUNTIME_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_LIBRARY_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)
-set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/lib)
-
+if(MSVC)
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/lib)
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/lib)
+else()
+	set(CMAKE_RUNTIME_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin)
+	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin) #we want the dynamic .so to be in the same directory as the executables
+	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/lib)
+endif()
 
 #set(VS_DEBUGGER_WORKING_DIRECTORY   ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE})
 #set(CMAKE_INSTALL_LIBDIR 			lib)

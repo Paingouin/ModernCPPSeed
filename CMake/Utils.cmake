@@ -41,7 +41,7 @@ function(manage_target_options target_name headers sources)
 			STATIC
 			${headers}
 			${sources}
-			)
+		)
 	else()
 		add_library(
 			${target_name}
@@ -69,22 +69,28 @@ function(manage_target_options target_name headers sources)
 		target_compile_features(${target_name} PUBLIC cxx_std_11)
 	endif()
 	
+	if(${${target_name}_INSTALL_HEADER} ) 
+		set_target_properties( ${target_name} PROPERTIES PUBLIC_HEADER ${headers} )
+	endif()
+	
 	target_include_directories(
 		${target_name}
 		PUBLIC 
-		$<INSTALL_INTERFACE:include>    
-		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  
 	)
 	
 	verbose_message("Finished set include_directories for ${target_name}")
 
 	
-	target_link_libraries(${target_name} PUBLIC ${${target_name}_LINKER_DEPENDECY})
+	target_link_libraries(${target_name} PUBLIC 
+		${${target_name}_LINKER_DEPENDECY}
+	)
 	verbose_message("Finished set library dependency for ${target_name}")
 	
-	
 	#Compile option	
-	target_link_libraries(${target_name} PRIVATE $<BUILD_INTERFACE:project_global_options>)
+	target_link_libraries(${target_name} PRIVATE
+		$<BUILD_INTERFACE:project_global_options>
+	)
 	
 	set( DEFINE_OPTION  "")
     set( COMPILE_OPTION "")
@@ -97,7 +103,7 @@ function(manage_target_options target_name headers sources)
 		)
 	set( COMPILE_OPTION ${COMPILE_OPTION} 
 			${${target_name}_COMPILER_OPTIONS}
-			$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_OPTIONS_DEBUG},${${target_name}_COMPILER_OPTIONS_RELEASE}>
+			$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_OPTIONS_DEBUG},${${target_name}_COMPILER_OPTIONS_RELEASE}> 
 		)
 	set( LINKER_OPTION ${LINKER_OPTION} 
 			${${target_name}_LINKER_DEFINITION}
@@ -115,7 +121,9 @@ function(manage_target_options target_name headers sources)
 		 )
 	verbose_message("Finished set compile options for ${target_name}")
 	
-	target_link_libraries(${target_name} PRIVATE $<BUILD_INTERFACE:project_global_warnings>)
+	target_link_libraries(${target_name} PRIVATE  
+		$<BUILD_INTERFACE:project_global_warnings>
+	)
 	verbose_message("Finished set project warning for ${target_name}")
 	 
 	#if(ENABLE_CONAN)
@@ -155,7 +163,7 @@ function(manage_target_options target_name headers sources)
 		DESTINATION
 			${CMAKE_INSTALL_LIBDIR}/cmake/${target_name}
 		)
-		
+	
 	# Quick `ConfigVersion.cmake` creation
 	#write_basic_package_version_file(
 	#	${target_name}ConfigVersion.cmake
@@ -191,6 +199,5 @@ function(manage_target_options target_name headers sources)
 	#	)
 	#	message("Generated the export header `${target_name}_export.h` and installed it.")
 	#endif()
-	
 	
 endfunction()

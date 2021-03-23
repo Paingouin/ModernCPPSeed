@@ -1,5 +1,9 @@
 #Option are set in this file by default. You can change it with the -D argument in the cmake command line
 
+
+SET(CMAKE_SKIP_BUILD_RPATH  TRUE)
+SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
+
 #Compile
 option(WARNINGS_AS_ERRORS "Enable the warning as error for all project" OFF)
 

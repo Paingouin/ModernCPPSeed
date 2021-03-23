@@ -140,9 +140,9 @@ function(manage_target_options target_name headers sources)
 		ARCHIVE DESTINATION
 			${CMAKE_INSTALL_LIBDIR}
 		INCLUDES DESTINATION
-			include
+			${CMAKE_INSTALL_INCLUDEDIR}
 		PUBLIC_HEADER DESTINATION
-			include
+			${CMAKE_INSTALL_INCLUDEDIR}
 		)
 
 	install(

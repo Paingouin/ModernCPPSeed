@@ -9,17 +9,19 @@ project(Batches   VERSION 0.1.0
                   LANGUAGES    CXX
 		)
 		
-		
 #First we need to set the utils function for cmake
 include(CMake/GlobalOptions.cmake)
 
+#Then we need to load the global compile option
 include(CMake/GlobalCompileOption.cmake)
 configure_global_compile_options()
 
+#Same now for the warnings
 include(CMake/GlobalCompileWarnings.cmake)
 configure_global_warnings()
 
 
+#This contain a "wiki" of the common use variable, and the fonction used to manage the projetcs specific options
 include(CMake/Utils.cmake)
 
 
@@ -44,6 +46,13 @@ add_subdirectory(Libraries)
 add_subdirectory(Batches)
 
 
+#if we want to retrieve source from a svn repository, for exemple
+get_source_from_svn_repo()
+
+
+#TODO : change to PAREN_SCOPE variable.
+get_directory_property(targets BUILDSYSTEM_TARGETS)
+MESSAGE(STATUS "List Targets ${targets}")
 
 #If build correctly, copy the resources forlder to the binary dir 
 #add_custom_command(TARGET ${PROJECT_NAME} POST_BUILD

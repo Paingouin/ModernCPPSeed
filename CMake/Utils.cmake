@@ -298,6 +298,11 @@ function(manage_target_options target_name headers sources)
 	#  target_compile_features()
 	#  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
 	
+	set_target_properties(
+		${target_name} 
+		PROPERTIES
+			VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+	)
 
 	if(${${target_name}_BUILD_HEADERS_ONLY})
 		target_compile_features(${target_name} INTERFACE cxx_std_11)
@@ -436,4 +441,21 @@ function(manage_target_options target_name headers sources)
 	#	message("Generated the export header `${target_name}_export.h` and installed it.")
 	#endif()
 	
+endfunction()
+
+
+
+include(FetchContent)
+function(get_source_from_svn_repo)
+if(NOT ${SPECIFIC_CLIENT} STREQUAL "" AND NOT ${SPECIFIC_BRANCH} STREQUAL "")
+    FetchContent_Declare(svn_repo
+        SVN_REPOSITORY ""
+		SVN_USERNAME "${SPECIFIC_SVN_USER}"
+        SVN_PASSWORD "${SPECIFIC_SVN_PWD}"
+        SVN_TRUST_CERT 1
+        SOURCE_DIR "../svn_folder"
+    )
+    FetchContent_Populate(svn_folder)
+    add_subdirectory(svn_folder)
+endif()
 endfunction()

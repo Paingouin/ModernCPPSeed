@@ -1,6 +1,10 @@
 
+#####----------GLOBAL_DEFINITION-----###
+
+#add_definitions(-DORACLE)
 
 ######---------MSVC-----------#######
+
 set(MSVC_COMPILE_OPTION ${MSVC_COMPILE_OPTION}
 /FS /Gy /Zi /MP /GS
 /Zc:wchar_t /Gm- /fp:precise /WX- /Gd /EHa /Zc:forScope /nologo /wd"4251"

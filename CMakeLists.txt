@@ -41,6 +41,9 @@ endif()
 #Load ConanConfiguration
 include(CMake/ConanConfig.cmake)
 
+#Load extlib if enabled
+#add_subdirectory(ExtLib)
+
 
 add_subdirectory(Libraries)
 add_subdirectory(Batches)

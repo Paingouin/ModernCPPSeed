@@ -14,9 +14,9 @@ mkdir Build
 cd Build
 
 cmake .. -G"Visual Studio 15 2017" -Ax64  -DCMAKE_INSTALL_PREFIX=../install
-cmake --build . --config Release
-cmake --build . --target RUN_TESTS --config Release
-cmake --build . --target install --config Release
+cmake --build . --config Release -j 4
+cmake --build . --target RUN_TESTS --config Release -j 4
+cmake --build . --target install --config Release -j 4
 
 rem ctest -C Release
 

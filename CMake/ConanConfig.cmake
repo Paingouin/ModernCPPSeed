@@ -4,7 +4,7 @@ if(ENABLE_CONAN)
     set(CONAN_REQUIRES "")
 	set(CONAN_OPTIONS "")
 	
-	set(CONAN_FILE "CMake/ConanConfig/conanfile.txt")
+	set(CONAN_FILE "CMake/ConanConfig/conanfile.py")
 
   # If `conan.cmake` (from https://github.com/conan-io/cmake-conan) does not exist, download it.
   #
@@ -38,12 +38,18 @@ if(ENABLE_CONAN)
     OPTIONS
       ${CONAN_OPTIONS}
 	BASIC_SETUP
-	KEEP_RPATHS
+	SKIP_RPATHS
 	CMAKE_TARGETS
     BUILD
       missing
   )
-
-  verbose_message("Conan is setup and all requires have been installed.")
   
+
 endif()
+
+
+function(conan_move_shared_libs )
+
+	
+
+endfunction()

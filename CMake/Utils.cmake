@@ -301,7 +301,7 @@ function(manage_target_options target_name headers sources)
 	set_target_properties(
 		${target_name} 
 		PROPERTIES
-			VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+			VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}
 	)
 
 	if(${${target_name}_BUILD_HEADERS_ONLY})
@@ -458,4 +458,9 @@ if(NOT ${SPECIFIC_CLIENT} STREQUAL "" AND NOT ${SPECIFIC_BRANCH} STREQUAL "")
     FetchContent_Populate(svn_folder)
     add_subdirectory(svn_folder)
 endif()
+endfunction()
+
+
+function(copy_extlib_content)
+
 endfunction()

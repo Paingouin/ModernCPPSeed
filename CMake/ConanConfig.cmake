@@ -21,12 +21,12 @@ if(ENABLE_CONAN)
 
   include(${CMAKE_SOURCE_DIR}/CMake/conan.cmake)
 
-  #conan_add_remote(NAME bincrafters
-  #    URL
-  #        https://api.bintray.com/conan/bincrafters/public-conan
+  conan_add_remote(NAME bincrafters
+      URL
+          https://api.bintray.com/conan/bincrafters/public-conan
 	#  INDEX 
 	#	  0
-  #)
+  )
 
   verbose_message("Call Conan with ${CONAN_FILE}")
   

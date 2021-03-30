@@ -6,6 +6,8 @@
 [![GitHub release (latest by date)](https://img.shields.io/github/v/release/Paingouin/ModernCPPSeed)](https://github.com/Paingouin/ModernCPPSeed/releases)
 
 ## Informations
+I refuse to support Apple anymore. Their policies are more and more aggresive toward devellopers. I canno't spend my time to support the "Apple only rendering pipeline, Apple only cu architecture etc"... 
+I blog from a fellow roguelikedev who made a good summarry: https://www.gridsagegames.com/blog/2019/09/sorry-mac-users-apple-doesnt-care-about-us-devs/
 
 ## Build Tools
 Inside Tools/Builders

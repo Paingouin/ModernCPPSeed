@@ -1,9 +1,9 @@
 project (ofInput CXX)
 
-set( sources
+set( ${PROJECT_NAME}_SOURCES
 		ofInput.cpp
 	)
-set( headers
+set( ${PROJECT_NAME}_PUBLIC_HEADERS
 		ofInput.h
 	)
 	
@@ -31,7 +31,7 @@ endif()
 
 
 set(${PROJECT_NAME}_LINKER_DEPENDECY)
-manage_target_options(${PROJECT_NAME} ${headers} ${sources})
+manage_target_options(${PROJECT_NAME}  )
 
 #you can still now do things like :
 #target_link_libraries(${PROJECT_NAME} PUBLIC CONAN_PKG::Thot)

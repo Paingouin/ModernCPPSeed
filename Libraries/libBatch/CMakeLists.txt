@@ -1,9 +1,9 @@
 project (ofBatch CXX)
 
-set( sources
+set( ${PROJECT_NAME}_SOURCES
 		ofBatch.cpp
 	)
-set( headers
+set( ${PROJECT_NAME}_PUBLIC_HEADERS
 		ofBatch.h
 	)
 	
@@ -32,7 +32,7 @@ endif()
 
 set(${PROJECT_NAME}_LINKER_DEPENDECY ofFile )
 
-manage_target_options(${PROJECT_NAME} ${headers} ${sources})
+manage_target_options(${PROJECT_NAME}  )
 
 #you can still now do things like :
 #target_link_libraries(${PROJECT_NAME}  CONAN_PKG::Thot)

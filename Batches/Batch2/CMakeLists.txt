@@ -1,9 +1,9 @@
 project (Batch2 CXX)
 
-set( sources
+set( ${PROJECT_NAME}_SOURCES
 		Batch2Main.cpp
 	)
-set( headers
+set( ${PROJECT_NAME}_PUBLIC_HEADERS
 		Batch2.h
 	)
 	
@@ -34,7 +34,7 @@ endif()
 
 set(${PROJECT_NAME}_LINKER_DEPENDECY ofFile ofInput)
 
-manage_target_options(${PROJECT_NAME} ${headers} ${sources})
+manage_target_options(${PROJECT_NAME})
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

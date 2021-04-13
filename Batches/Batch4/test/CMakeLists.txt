@@ -1,9 +1,9 @@
 project (Batch4Test CXX)
 
-set( sources
+set( ${PROJECT_NAME}_SOURCES
 		Batch4_TestMain.cpp
 	)
-set( headers
+set( ${PROJECT_NAME}_PUBLIC_HEADERS
 		../Batch4.h
 	)
 	
@@ -31,7 +31,7 @@ endif()
 
 set(${PROJECT_NAME}_LINKER_DEPENDECY ofBatch CONAN_PKG::gtest)
 
-manage_target_options(${PROJECT_NAME} ${headers} ${sources})
+manage_target_options(${PROJECT_NAME}  )
 
 #We need to specify that this is a test
 add_test(

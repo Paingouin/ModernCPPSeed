@@ -243,7 +243,7 @@ function(add_clang_format_target)
     if(CLANG_FORMAT_BINARY)
 		add_custom_target(clang-format
 				COMMAND ${CLANG_FORMAT_BINARY}
-				-i ${CMAKE_CURRENT_LIST_DIR}= ${CMAKE_CURRENT_LIST_DIR}/${headers})
+				-i ${CMAKE_CURRENT_LIST_DIR}= ${CMAKE_CURRENT_LIST_DIR}/${${target_name}_PUBLIC_HEADERS})
 
 		message(STATUS "Format the projects using the `clang-format` target (i.e: cmake --build build --target clang-format).\n")
     endif()
@@ -258,32 +258,40 @@ include(GNUInstallDirs)
 include(InstallRequiredSystemLibraries)
 
 #we set the specific option for each target
-function(manage_target_options target_name headers sources)
+function(manage_target_options target_name)
 
 	if(${${target_name}_BUILD_EXECUTABLE})
 		add_executable(
 			${target_name} 
-			${sources} 
-			${headers}
+			${${target_name}_SOURCES} 
+			${${target_name}_PUBLIC_HEADERS}
+			${${target_name}_PRIVATE_HEADERS}
 		)
 	elseif(${${target_name}_BUILD_HEADERS_ONLY})
 		add_library(
 			${target_name} 
 			INTERFACE
 			)
+		target_sources(
+			${target_name} 
+			INTERFACE
+			${${target_name}_PUBLIC_HEADERS}
+			)
 	elseif(${${target_name}_BUILD_STATIC_LIB})
 		add_library(
 			${target_name}
 			STATIC
-			${headers}
-			${sources}
+			${${target_name}_PUBLIC_HEADERS}
+			${${target_name}_PRIVATE_HEADERS}
+			${${target_name}_SOURCES}
 		)
 	else()
 		add_library(
 			${target_name}
 			SHARED
-			${headers}
-			${sources}
+			${${target_name}_PUBLIC_HEADERS}
+			${${target_name}_PRIVATE_HEADERS}
+			${${target_name}_SOURCES}
 		)
 		## Export all symbols when building a shared library
 		#if(${PROJECT_NAME}_BUILD_SHARED_LIBS)
@@ -293,16 +301,18 @@ function(manage_target_options target_name headers sources)
 		#endif()
 	endif()
 	
+	verbose_message("Added source file ${${target_name}_SOURCES} and ${${target_name}_PUBLIC_HEADERS} for ${target_name}")
+	
 	#  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D
 	#  target_compile_options(${PROJECT_NAME} PRIVATE -O0 -g -fprofile-arcs -ftest-coverage)
 	#  target_compile_features()
 	#  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
 	
-	set_target_properties(
-		${target_name} 
-		PROPERTIES
-			VS_DEBUGGER_WORKING_DIRECTORY ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}/${CMAKE_BUILD_TYPE}
-	)
+	#set_target_properties(
+	#	${target_name} 
+	#	PROPERTIES
+	#		VS_DEBUGGER_WORKING_DIRECTORY "$(TargetDir)"
+	#)
 
 	if(${${target_name}_BUILD_HEADERS_ONLY})
 		target_compile_features(${target_name} INTERFACE cxx_std_11)
@@ -311,7 +321,7 @@ function(manage_target_options target_name headers sources)
 	endif()
 	
 	if(${${target_name}_INSTALL_HEADER} ) 
-		set_target_properties( ${target_name} PROPERTIES PUBLIC_HEADER ${headers} )
+		set_target_properties( ${target_name} PROPERTIES PUBLIC_HEADER ${${target_name}_PUBLIC_HEADERS} )
 	endif()
 	
 	target_include_directories(

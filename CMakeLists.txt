@@ -1,6 +1,6 @@
-cmake_minimum_required(VERSION 3.12)
+cmake_minimum_required(VERSION 3.14)
 
-if(${CMAKE_VERSION} VERSION_LESS 3.12)
+if(${CMAKE_VERSION} VERSION_LESS 3.14)
     cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
@@ -63,6 +63,27 @@ MESSAGE(STATUS "List Targets ${targets}")
 #                       ${CMAKE_SOURCE_DIR}/resources $<TARGET_FILE_DIR:${PROJECT_NAME}>/resources
 #					COMMAND ${CMAKE_COMMAND} -E copy_directory
 #                       ${CMAKE_SOURCE_DIR}/resources ${CMAKE_BINARY_DIR}/resources )
+
+#Install Ressources dans dynamic lib, only work on single config for now
+  	install(
+		DIRECTORY
+			"${CMAKE_BINARY_DIR}/bin/${CMAKE_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/"
+		DESTINATION
+			${CMAKE_INSTALL_BINDIR}
+		CONFIGURATIONS 
+			Release
+		FILES_MATCHING 
+			PATTERN "*.so*" 
+			PATTERN "*.dylib*"
+			PATTERN "*.dll*"
+			PATTERN "*.ttf"
+			PATTERN "*.png"
+			PATTERN "*.fs"
+			PATTERN "*.vs"	
+			PATTERN "Ressources/*"
+		)
+
+#----------------END OF FILE-----------------#
 
 
 

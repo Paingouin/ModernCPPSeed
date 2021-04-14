@@ -1,19 +1,14 @@
-project (Batch3 CXX)
+project (ofHeaderOnly CXX)
 
-set( ${PROJECT_NAME}_SOURCES
-		Batch3Main.cpp
-	)
+
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Batch3.h
+		ofHeaderOnly.h
 	)
 	
-
-set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
-
-set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
-
+set(${PROJECT_NAME}_BUILD_HEADERS_ONLY ON)
 
 set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
+
 
 #You can also add your own compiler/linker option and definition
 if(MSVC)
@@ -32,11 +27,9 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDECY ofHeaderOnly )
 
-manage_target_options(${PROJECT_NAME}  )
+set(${PROJECT_NAME}_LINKER_DEPENDECY)
+manage_target_options(${PROJECT_NAME})
 
-
-#  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D
-#  target_compile_options(${PROJECT_NAME} PRIVATE -O0 -g -fprofile-arcs -ftest-coverage)
-#  target_link_options(${PROJECT_NAME} PRIVATE -fprofile-arcs -ftest-coverage)
+#you can still now do things like :
+#target_link_libraries(${PROJECT_NAME} PUBLIC CONAN_PKG::Thot)

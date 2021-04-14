@@ -40,16 +40,9 @@ if(ENABLE_CONAN)
 	BASIC_SETUP
 	SKIP_RPATHS
 	CMAKE_TARGETS
+	NO_OUTPUT_DIRS
     BUILD
       missing
-  )
-  
+  )			
 
 endif()
-
-
-function(conan_move_shared_libs )
-
-	
-
-endfunction()

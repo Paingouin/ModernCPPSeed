@@ -1,2 +1,3 @@
 add_subdirectory(libFile)
+add_subdirectory(libHeaderOnly)
 add_subdirectory(libInput)

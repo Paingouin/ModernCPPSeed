@@ -254,8 +254,12 @@ include(CMakePackageConfigHelpers)
 
 # Install library for easy downstream inclusion  (move to bin the exe etc..)
 include(GNUInstallDirs)
+
 # Install runtime dependency 
 include(InstallRequiredSystemLibraries)
+#set(CMAKE_INSTALL_MFC_LIBRARIES TRUE)
+
+
 
 #we set the specific option for each target
 function(manage_target_options target_name)
@@ -275,7 +279,7 @@ function(manage_target_options target_name)
 		target_sources(
 			${target_name} 
 			INTERFACE
-			${${target_name}_PUBLIC_HEADERS}
+			  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${${target_name}_PUBLIC_HEADERS}>
 			)
 	elseif(${${target_name}_BUILD_STATIC_LIB})
 		add_library(
@@ -316,67 +320,82 @@ function(manage_target_options target_name)
 
 	if(${${target_name}_BUILD_HEADERS_ONLY})
 		target_compile_features(${target_name} INTERFACE cxx_std_11)
+		target_include_directories(
+		${target_name}
+		INTERFACE 
+		 $<BUILD_INTERFACE:${${target_name}_SOURCE_DIR}>
+	)
 	else()
 		target_compile_features(${target_name} PUBLIC cxx_std_11)
+		target_include_directories(
+		${target_name}
+		PUBLIC 
+		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  
+	)
 	endif()
 	
 	if(${${target_name}_INSTALL_HEADER} ) 
 		set_target_properties( ${target_name} PROPERTIES PUBLIC_HEADER ${${target_name}_PUBLIC_HEADERS} )
 	endif()
 	
-	target_include_directories(
-		${target_name}
-		PUBLIC 
-		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  
-	)
 	
 	verbose_message("Finished set include_directories for ${target_name}")
 
-	
-	target_link_libraries(${target_name} PUBLIC 
-		${${target_name}_LINKER_DEPENDECY}
-	)
+	if(${${target_name}_BUILD_HEADERS_ONLY})
+		target_link_libraries(${target_name} INTERFACE 
+			${${target_name}_LINKER_DEPENDECY}
+		)
+	else()
+		target_link_libraries(${target_name} PUBLIC 
+			${${target_name}_LINKER_DEPENDECY}
+		)
+					#Compile option	
+		target_link_libraries(${target_name} PRIVATE
+			$<BUILD_INTERFACE:project_global_options>
+		)
+
+	endif()
 	verbose_message("Finished set library dependency for ${target_name}")
 	
-	#Compile option	
-	target_link_libraries(${target_name} PRIVATE
-		$<BUILD_INTERFACE:project_global_options>
-	)
 	
-	set( DEFINE_OPTION  "")
-    set( COMPILE_OPTION "")
-	set( LINKER_OPTION  "")
+	if( NOT ${${target_name}_BUILD_HEADERS_ONLY})
+		
+		set( DEFINE_OPTION  "")
+		set( COMPILE_OPTION "")
+		set( LINKER_OPTION  "")
+		
+		#add user optionnal option
+		set( DEFINE_OPTION ${DEFINE_OPTION} 
+				${${target_name}_COMPILER_DEFINITION}
+				$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_DEFINITION_DEBUG},${${target_name}_COMPILER_DEFINITION_RELEASE}>
+			)
+		set( COMPILE_OPTION ${COMPILE_OPTION} 
+				${${target_name}_COMPILER_OPTIONS}
+				$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_OPTIONS_DEBUG},${${target_name}_COMPILER_OPTIONS_RELEASE}> 
+			)
+		set( LINKER_OPTION ${LINKER_OPTION} 
+				${${target_name}_LINKER_DEFINITION}
+				$<IF:$<CONFIG:DEBUG>,${${target_name}_LINKER_OPTIONS_DEBUG},${${target_name}_LINKER_OPTIONS_RELEASE}>
+			)
 	
-	#add user optionnal option
-	set( DEFINE_OPTION ${DEFINE_OPTION} 
-			${${target_name}_COMPILER_DEFINITION}
-			$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_DEFINITION_DEBUG},${${target_name}_COMPILER_DEFINITION_RELEASE}>
-		)
-	set( COMPILE_OPTION ${COMPILE_OPTION} 
-			${${target_name}_COMPILER_OPTIONS}
-			$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_OPTIONS_DEBUG},${${target_name}_COMPILER_OPTIONS_RELEASE}> 
-		)
-	set( LINKER_OPTION ${LINKER_OPTION} 
-			${${target_name}_LINKER_DEFINITION}
-			$<IF:$<CONFIG:DEBUG>,${${target_name}_LINKER_OPTIONS_DEBUG},${${target_name}_LINKER_OPTIONS_RELEASE}>
-		)
 	
-	#Add them to the  project target
-	target_compile_definitions(${target_name} PRIVATE 
+		#Add them to the  project target
+		target_compile_definitions(${target_name} PRIVATE 
 			 ${DEFINE_OPTION}
 		 )
 		 
-	target_compile_options(${target_name} PRIVATE 
+		target_compile_options(${target_name} PRIVATE 
 		     ${COMPILE_OPTION} 
 			 ${LINKER_OPTION}
 		 )
-	verbose_message("Finished set compile options for ${target_name}")
+		verbose_message("Finished set compile options for ${target_name}")
+		
+		target_link_libraries(${target_name} PRIVATE  
+			$<BUILD_INTERFACE:project_global_warnings>
+		)
+		verbose_message("Finished set project warning for ${target_name}")
+	endif()
 	
-	target_link_libraries(${target_name} PRIVATE  
-		$<BUILD_INTERFACE:project_global_warnings>
-	)
-	verbose_message("Finished set project warning for ${target_name}")
-	 
 	#if(ENABLE_CONAN)
 	#	target_include_directories(${target_name} PUBLIC ${CONAN_INCLUDE_DIRS} ) 
 	#endif()
@@ -385,7 +404,7 @@ function(manage_target_options target_name)
 		message( STATUS "Build unit tests for the project. Tests should always be found in the test subfolder\n")
 		add_subdirectory(test)
 	endif()
-	
+
 	
 	install(
 		TARGETS

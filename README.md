@@ -52,13 +52,46 @@ Will invoke your compiler to build the binaries at Release mode using 4 thread i
 
 ## Structure of the project 
 ---
-Now that we know how to launch cmake , I will explain how to configure it, without all the schlimlink 
+Now that we know how to launch cmake , I will explain how to configure it, without all the schlimblik 
 
 First, at the root of the project, you have a CMakeList.txt, this one is used : 
 * name our project
 * read the Global Options
 * launch Conan
 * read the others CmakeLists.txt (the one of our batches/libraries)
+
+```
+ModernCPPSeed
+╚╦ Batches    
+ ║ ╠═ Batch_1
+ ║ ║  ╠═  cpp and .h files
+ ║ ║  ╚═  CMakeLists.txt --where  you configure your exe
+ ║ ╠═ Batch_2
+ ║ ║  ╠═  cpp and .h files
+ ║ ║  ╚═  CMakeLists.txt
+ ║ ╚═  CMakeLists.txt --where you add the batches you want to add.
+ ╠ Libraries
+ ║ ╠═ Library_1
+ ║ ║  ╠═  cpp and .h files
+ ║ ║  ╚═  CMakeLists.txt --where  you configure your lib
+ ║ ╠═ Library_2
+ ║ ║  ╠═  cpp and .h files
+ ║ ║  ╚═  CMakeLists.txt --where  you configure your lib
+ ║ ╚═  CMakeLists.txt --where you add the libraries you want to add. 
+ ╠ CMake
+ ║ ╠═ GlobalOption.cmake --where you configure the global option of your programm
+ ║ ╠═ Gonan.cmake --where you configure conan
+ ║ ╚═ GlobalCompileOption.cmake 
+ ╚ Tools
+  ╚═ Contain tools to help  generate/build and install the binaries
+ 
+```
+
+
+
+
+The binaires will be put in a Build\bin\SYSTEM_NAME\BUILD_TYPE and the statc lib in Build\lib\SYSTEM_NAME\BUILD_TYPE.
+
 
 ## Global Options
 
@@ -89,6 +122,9 @@ These impact all the batches/library.
 
 
 ## Global compile Options
+
+There's a Cmake\GlobalCompileOption.cmake file where you can add all the options that will be use by all the batches and libraries.
+
 
 
 ## Batches and library option.
@@ -173,6 +209,9 @@ at the end , add the function that will manage all the options :
 ```cmake
 manage_target_options(${PROJECT_NAME})
 ```
+
+
+
 
 
 ## Note

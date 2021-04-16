@@ -66,6 +66,7 @@ ModernCPPSeed
  ║  ╠═ Batch_1
  ║  ║  ╠═  cpp and .h files
  ║  ║  ╚═  CMakeLists.txt --where  you configure your exe
+ ║  ║
  ║  ╠═ Batch_2
  ║  ║  ╠═  cpp and .h files
  ║  ║  ╚═  CMakeLists.txt
@@ -75,6 +76,7 @@ ModernCPPSeed
  ║  ╠═ Library_1
  ║  ║  ╠═  cpp and .h files
  ║  ║  ╚═  CMakeLists.txt --where  you configure your lib
+ ║  ║
  ║  ╠═ Library_2
  ║  ║  ╠═  cpp and .h files
  ║  ║  ╚═  CMakeLists.txt --where  you configure your lib

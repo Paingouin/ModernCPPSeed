@@ -83,7 +83,7 @@ ModernCPPSeed
  ║ ╠═ Gonan.cmake --where you configure conan
  ║ ╚═ GlobalCompileOption.cmake 
  ╚ Tools
-  ╚═ Contain tools to help  generate/build and install the binaries
+   ╚═ Contain tools to help  generate/build and install the binaries
  
 ```
 

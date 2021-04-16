@@ -59,9 +59,12 @@ First, at the root of the project, you have a CMakeList.txt, this one is used :
 * read the Global Options
 * launch Conan
 * read the others CmakeLists.txt (the one of our batches/libraries)
+  * First it will read the CmakeList.txt inside the folder Libraries
+  * Then it will read the CmakeList.txt inside the folder Batches
 
 ```
 ModernCPPSeed
+║
 ╚╦═ Batches    
  ║  ╠═ Batch_1
  ║  ║  ╠═  .cpp and .h files

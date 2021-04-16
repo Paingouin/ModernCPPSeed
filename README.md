@@ -62,28 +62,33 @@ First, at the root of the project, you have a CMakeList.txt, this one is used :
 
 ```
 ModernCPPSeed
-╚╦ Batches    
- ║ ╠═ Batch_1
- ║ ║  ╠═  cpp and .h files
- ║ ║  ╚═  CMakeLists.txt --where  you configure your exe
- ║ ╠═ Batch_2
- ║ ║  ╠═  cpp and .h files
- ║ ║  ╚═  CMakeLists.txt
- ║ ╚═  CMakeLists.txt --where you add the batches you want to add.
- ╠ Libraries
- ║ ╠═ Library_1
- ║ ║  ╠═  cpp and .h files
- ║ ║  ╚═  CMakeLists.txt --where  you configure your lib
- ║ ╠═ Library_2
- ║ ║  ╠═  cpp and .h files
- ║ ║  ╚═  CMakeLists.txt --where  you configure your lib
- ║ ╚═  CMakeLists.txt --where you add the libraries you want to add. 
- ╠ CMake
- ║ ╠═ GlobalOption.cmake --where you configure the global option of your programm
- ║ ╠═ Gonan.cmake --where you configure conan
- ║ ╚═ GlobalCompileOption.cmake 
- ╚ Tools
-   ╚═ Contain tools to help  generate/build and install the binaries
+╚╦═ Batches    
+ ║  ╠═ Batch_1
+ ║  ║  ╠═  cpp and .h files
+ ║  ║  ╚═  CMakeLists.txt --where  you configure your exe
+ ║  ╠═ Batch_2
+ ║  ║  ╠═  cpp and .h files
+ ║  ║  ╚═  CMakeLists.txt
+ ║  ╚═  CMakeLists.txt --where you add the batches you want to add, with add_subdirectory
+ ║
+ ╠═ Libraries
+ ║  ╠═ Library_1
+ ║  ║  ╠═  cpp and .h files
+ ║  ║  ╚═  CMakeLists.txt --where  you configure your lib
+ ║  ╠═ Library_2
+ ║  ║  ╠═  cpp and .h files
+ ║  ║  ╚═  CMakeLists.txt --where  you configure your lib
+ ║  ╚═  CMakeLists.txt --where you add the libraries you want to add, with add_subdirectory
+ ║
+ ╠═ CMake
+ ║  ╠═ GlobalOption.cmake --where you configure the global option of your programm
+ ║  ╠═ Gonan.cmake --where you configure conan
+ ║  ╚═ GlobalCompileOption.cmake 
+ ║
+ ╠═ Tools
+ ║   ╚═ Contain tools to help  generate/build and install the binaries
+ ║
+ ╚═ CMakeLists.txt --The main CMakeLists.txt (the one read in first by Cmake) 
  
 ```
 

@@ -68,10 +68,8 @@ These impact all the batches/library.
 
 | Options       |    Description        | Value possible  |
 | ------------- |-------------| -----|
-|CMAKE_SKIP_BUILD_RPATH |  | TRUE or FALSE |
-|CMAKE_INSTALL_RPATH_USE_LINK_PATH |  | TRUE or FALSE , default TRUE|
+|CMAKE_SKIP_BUILD_RPATH |  | TRUE or FALSE, default TRUE |
 |CMAKE_INSTALL_RPATH_USE_LINK_PATH |  | TRUE or FALSE , default FALSE|
-|WARNINGS_AS_ERRORS | Enable the warning as error for all project | ON or OFF , default OFF|
 |WARNINGS_AS_ERRORS | Enable the warning as error for all project | ON or OFF , default OFF|
 |ENABLE_CONAN | Enable the warning as error for all project. | ON or OFF , default ON|
 |ENABLE_CLANG_TIDY | Enable static analysis with Clang-Tidy. | ON or OFF , default OFF|
@@ -85,7 +83,96 @@ These impact all the batches/library.
 |ENABLE_LTO|Enable the usage of CCache, in order to speed up build times.| ON or OFF, default OFF|
 
 
+
+
+
+
+
 ## Global compile Options
+
+
+## Batches and library option.
+This is what you have to configure the most 
+
+Add a cmakeList in the folder Batches or Libraries
+
+Modify the CmakeList.txt
+
+you habe to set theses option in terms of you want to use.
+
+First you want to name your executable/library/project.
+```cmake
+project (BatchNAME CXX)
+```
+Replace "BatchName" with what you want to use.
+
+You then want to add the headers of your programm  :
+```cmake
+set( ${PROJECT_NAME}_PUBLIC_HEADERS
+		Batch4.h
+	)
+```
+You can put them in an other folder like this :
+```cmake
+set( ${PROJECT_NAME}_PUBLIC_HEADERS
+		Include/Batch4.h
+	)
+```
+
+You can also add them as private header like this : 
+```cmake
+set( ${PROJECT_NAME}_PRIVATE_HEADERS
+		Batch4.h
+	)
+```
+
+Now, you have to choose if you want a executable , a static lib or a dynamic library.
+You can add one of these lines :
+* for the executable 
+```cmake
+set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
+```
+* for a static lib 
+```cmake
+set(${PROJECT_NAME}_BUILD_STATIC_LIB ON )
+```
+* for a dynamic lib
+```cmake
+set(${PROJECT_NAME}_BUILD_STATIC_LIB OFF )
+```
+
+
+If you want to add compilation/linker options and definition , you can add your own : 
+```cmake
+if(MSVC)
+	set(${PROJECT_NAME}_COMPILER_DEFINITION "")
+	set(${PROJECT_NAME}_COMPILER_DEFINITION_DEBUG "")
+	set(${PROJECT_NAME}_COMPILER_DEFINITION_RELEASE "")
+	set(${PROJECT_NAME}_COMPILER_OPTIONS "")
+	set(${PROJECT_NAME}_COMPILER_OPTIONS_DEBUG "")
+	set(${PROJECT_NAME}_COMPILER_OPTIONS_RELEASE "")
+	set(${PROJECT_NAME}_LINKER_OPTIONS "")
+	set(${PROJECT_NAME}_LINKER_OPTIONS_DEBUG "")
+	set(${PROJECT_NAME}_LINKER_OPTIONS_RELEASE "")
+elseif(CMAKE_CXX_COMPILER_ID MATCHES ".*Clang" AND NOT ${CMAKE_SYSTEM_NAME} MATCHES "Emscripten")
+
+elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
+
+endif()
+```
+
+
+If your library/batch is dependent from anither, you can add the dependency like this :
+
+```cmake
+set(${PROJECT_NAME}_LINKER_DEPENDECY CONAN_PKG::glm libCamera )
+```
+Here , in the exemple, my lib will be dependent of the glm Conan package and from the libCamera .
+
+at the end , add the function that will manage all the options : 
+```cmake
+manage_target_options(${PROJECT_NAME})
+```
 
 
 ## Note

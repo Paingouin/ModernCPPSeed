@@ -20,13 +20,13 @@ Cmake is a build system generator. It is used to create all the things  the comp
 
 When invoking CMake, it will read the *CMakeLists.txt* files in our project, set all the settings/paths he will give to our tools and voilà.
 
-To use cmake , you will need to have one compilator toolkit installed on the plateform you will run cmake and build your programm. (MSVC or GNU GCC for exemple)
+To use cmake , you will need to have one compiler toolkit installed on the plateform you will run cmake and build your programm. (MSVC or GNU GCC for exemple)
 
-Cmake is generally used by command line in a separete directory 
+Cmake is generally used by command line, but I will show the generic way to use it.
 
-But I provided in the folder Tools/Builders, some script who will invoke CMake directly. (Descripted below)
+I provided in the folder Tools/Builders, some script who will invoke CMake directly. (Descripted below)
 
-As far as I'm concerned , I like to use this kind of command in the root folder of this project
+As far as I'm concerned , I like to use this kind of command in the root folder of this project.
 
 ```
 cd ../..
@@ -49,18 +49,22 @@ cmake --build . --config Release -j 4
 ```
 
 Will invoke your compiler to build the binaries at Release mode using 4 thread if possible.
+You can also use your IDE or the compiler tools directly to build your binaries.
 
 ## Structure of the project 
 ---
 Now that we know how to launch cmake , I will explain how to configure it, without all the schlimblik 
 
-First, at the root of the project, you have a CMakeList.txt, this one is used : 
+First, at the root of the project, you have a CMakeList.txt, this one is used to : 
 * name our project
 * read the Global Options
 * launch Conan
 * read the others CmakeLists.txt (the one of our batches/libraries)
   * First it will read the CmakeList.txt inside the folder Libraries
   * Then it will read the CmakeList.txt inside the folder Batches
+
+
+Here's a schema of the structure of the model : 
 
 ```
 ModernCPPSeed
@@ -101,6 +105,9 @@ ModernCPPSeed
  ╚═ CMakeLists.txt --The main CMakeLists.txt (the one read in first by Cmake) 
  
 ```
+In the folder Batch, I to put my executables , each batch represent an executable binary (but nothing prevent you to make libraries into these folder)
+In the folder Libraries, I prefer to put all my self-made Libraries, and libraries who I have the source file like headers only libraries. (nothing prevent you to make executable inside this folder)
+
 
 
 

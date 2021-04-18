@@ -11,11 +11,13 @@ We will lose a little control about what we do , in exchange of a simpler and *p
 
 I will explain everything you need to know, step by step, to have a cozy space to work.
 
-The principle is that you only have to add your folder with your .cpp/.h files, choose of you want an executable/a lib, your dependencies and that's it. 
+The principle is that you only have to add your folder with your .cpp/.h files, choose if you want an executable/a lib, your dependencies and that's it. 
 
-Here, what I call a batches is an executable, and a library is a static or dynamic library used by the batches.
+NOTE : what I call a batch is an executable, and a library is a static or dynamic library used by the batches.
 
 ## How CMake works
+You can skip this section if you know how to invoke cmake and your compiler.
+
 Cmake is a build system generator. It is used to create all the things  the compilers/linkers etc.. will need to create the wanted binaries.
 
 When invoking CMake, it will read the *CMakeLists.txt* files in our project, set all the settings/paths he will give to our tools and voilà.
@@ -52,7 +54,6 @@ Will invoke your compiler to build the binaries at Release mode using 4 thread i
 You can also use your IDE or the compiler tools directly to build your binaries.
 
 ## Structure of the project 
----
 Now that we know how to launch cmake , I will explain how to configure it, without all the schlimblik 
 
 First, at the root of the project, you have a CMakeList.txt, this one is used to : 
@@ -232,8 +233,27 @@ at the end , add the function that will manage all the options :
 manage_target_options(${PROJECT_NAME})
 ```
 
+## Step by step tutorial : Configure everything and add your own library and batches.
+### Root CMakeList.exe
+
+### CMake/GlobalOption
+
+### CMake/GlobalCompileOption
+
+### Libraries folder
+
+### Batches folder
+
+### Invoke Cmake
+
+## Conan
+
+## Copy the Ressources directory to the build directory
 
 
+## Test framework
+
+You can add your own sub-batches/sub-library by adding a test folder inside your own batch : 
 
 
 ## Note
@@ -248,3 +268,6 @@ To test the hot-loading, compile the batch-hot-loading, launch it manually (in t
 Open the project ofHotLoad
 Change the content of the method loadedFunction and build the project.
 The changes should appear.
+
+## Thanks and ressources 
+Thanks to filipdutescu for the modern cmake template which I've used to learn these ideas and techniques : https://github.com/filipdutescu/modern-cpp-template 

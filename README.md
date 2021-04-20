@@ -178,7 +178,7 @@ set( ${PROJECT_NAME}_PUBLIC_HEADERS
 	)
 ```
 
-You can also add them as private header like this : 
+You can also add them as private header like this: 
 ```cmake
 set( ${PROJECT_NAME}_PRIVATE_HEADERS
 		Batch4.h
@@ -199,6 +199,11 @@ set(${PROJECT_NAME}_BUILD_STATIC_LIB ON )
 ```cmake
 set(${PROJECT_NAME}_BUILD_STATIC_LIB OFF )
 ```
+* for a header only lib
+```cmake
+set(${PROJECT_NAME}_BUILD_HEADERS_ONLY OFF )
+```
+
 
 
 If you want to add compilation/linker options and definition , you can add your own : 

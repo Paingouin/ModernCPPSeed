@@ -400,7 +400,7 @@ function(manage_target_options target_name)
 	#	target_include_directories(${target_name} PUBLIC ${CONAN_INCLUDE_DIRS} ) 
 	#endif()
 		
-	if(${${target_name}_ENABLE_UNIT_TESTING})
+	if(${${target_name}_ENABLE_UNIT_TESTING} AND ENABLE_CONAN)
 		message( STATUS "Build unit tests for the project. Tests should always be found in the test subfolder\n")
 		add_subdirectory(test)
 	endif()

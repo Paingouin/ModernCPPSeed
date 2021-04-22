@@ -8,7 +8,7 @@ SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
 option(WARNINGS_AS_ERRORS "Enable the warning as error for all project" OFF)
 
 #package
-option(ENABLE_CONAN "Enable the Conan package manager for all project." ON)
+option(ENABLE_CONAN "Enable the Conan package manager for all project." OFF)
 #option(ENABLE_VCPKG "Enable the Conan package manager for all project." OFF)
 
 #unit test : for the moment, it's per project

@@ -267,36 +267,42 @@ function(manage_target_options target_name)
 	if(${${target_name}_BUILD_EXECUTABLE})
 		add_executable(
 			${target_name} 
-			${${target_name}_SOURCES} 
-			${${target_name}_PUBLIC_HEADERS}
-			${${target_name}_PRIVATE_HEADERS}
+			 $<BUILD_INTERFACE:${${target_name}_SOURCES}>
+			 $<BUILD_INTERFACE:${${target_name}_PUBLIC_HEADERS}>
+			 $<BUILD_INTERFACE:${${target_name}_PRIVATE_HEADERS}>
 		)
+		verbose_message("Add target source for ${${target_name}_SOURCES} ${${target_name}_PUBLIC_HEADERS} ${${target_name}_PRIVATE_HEADERS}	")
+		
 	elseif(${${target_name}_BUILD_HEADERS_ONLY})
 		add_library(
 			${target_name} 
-			INTERFACE
-			)
+			INTERFACE		
+		)
+		 set_source_files_properties(${CMAKE_CURRENT_LIST_DIR}/${${target_name}_PUBLIC_HEADERS} PROPERTIES HEADER_FILE_ONLY TRUE)
 		target_sources(
-			${target_name} 
-			INTERFACE
-			  $<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}/${${target_name}_PUBLIC_HEADERS}>
-			)
+		    ${target_name}
+			INTERFACE  
+			./${${target_name}_PUBLIC_HEADERS}
+		)		
+		verbose_message("Add target source for ${${target_name}_PUBLIC_HEADERS}	")
 	elseif(${${target_name}_BUILD_STATIC_LIB})
 		add_library(
 			${target_name}
 			STATIC
-			${${target_name}_PUBLIC_HEADERS}
-			${${target_name}_PRIVATE_HEADERS}
-			${${target_name}_SOURCES}
+			 $<BUILD_INTERFACE:${${target_name}_PUBLIC_HEADERS}>
+			 $<BUILD_INTERFACE:${${target_name}_PRIVATE_HEADERS}>
+			 $<BUILD_INTERFACE:${${target_name}_SOURCES}>
 		)
+			verbose_message("Add target source for ${${target_name}_SOURCES} ${${target_name}_PUBLIC_HEADERS} ${${target_name}_PRIVATE_HEADERS}	")
 	else()
 		add_library(
 			${target_name}
 			SHARED
-			${${target_name}_PUBLIC_HEADERS}
-			${${target_name}_PRIVATE_HEADERS}
-			${${target_name}_SOURCES}
+			 ${${target_name}_PUBLIC_HEADERS}
+			 ${${target_name}_PRIVATE_HEADERS}
+			 ${${target_name}_SOURCES}
 		)
+			verbose_message("Add target source for ${${target_name}_SOURCES} ${${target_name}_PUBLIC_HEADERS} ${${target_name}_PRIVATE_HEADERS}	")
 		## Export all symbols when building a shared library
 		#if(${PROJECT_NAME}_BUILD_SHARED_LIBS)
 		#	set(CMAKE_WINDOWS_EXPORT_ALL_SYMBOLS OFF)
@@ -305,7 +311,6 @@ function(manage_target_options target_name)
 		#endif()
 	endif()
 	
-	verbose_message("Added source file ${${target_name}_SOURCES} and ${${target_name}_PUBLIC_HEADERS} for ${target_name}")
 	
 	#  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D
 	#  target_compile_options(${PROJECT_NAME} PRIVATE -O0 -g -fprofile-arcs -ftest-coverage)
@@ -321,17 +326,21 @@ function(manage_target_options target_name)
 	if(${${target_name}_BUILD_HEADERS_ONLY})
 		target_compile_features(${target_name} INTERFACE cxx_std_11)
 		target_include_directories(
-		${target_name}
-		INTERFACE 
-		 $<BUILD_INTERFACE:${${target_name}_SOURCE_DIR}>
-	)
+		${target_name} 
+		INTERFACE
+		 $<BUILD_INTERFACE:${${target_name}_SOURCE_DIR}> 
+		 $<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>
+		)
+		verbose_message("Add target include directories from ${${target_name}_SOURCE_DIR}")
 	else()
 		target_compile_features(${target_name} PUBLIC cxx_std_11)
 		target_include_directories(
 		${target_name}
 		PUBLIC 
-		$<BUILD_INTERFACE:${CMAKE_CURRENT_SOURCE_DIR}>  
-	)
+		$<BUILD_INTERFACE:${${target_name}_SOURCE_DIR}>
+		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>	
+		)
+		verbose_message("Add target include directories from ${${target_name}_SOURCE_DIR}")
 	endif()
 	
 	if(${${target_name}_INSTALL_HEADER} ) 
@@ -349,10 +358,11 @@ function(manage_target_options target_name)
 		target_link_libraries(${target_name} PUBLIC 
 			${${target_name}_LINKER_DEPENDECY}
 		)
-					#Compile option	
 		target_link_libraries(${target_name} PRIVATE
-			$<BUILD_INTERFACE:project_global_options>
+			 $<BUILD_INTERFACE:project_global_options>
 		)
+		
+			verbose_message("Finished set library dependency ${${target_name}_LINKER_DEPENDECY} ")
 
 	endif()
 	verbose_message("Finished set library dependency for ${target_name}")
@@ -367,15 +377,18 @@ function(manage_target_options target_name)
 		#add user optionnal option
 		set( DEFINE_OPTION ${DEFINE_OPTION} 
 				${${target_name}_COMPILER_DEFINITION}
-				$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_DEFINITION_DEBUG},${${target_name}_COMPILER_DEFINITION_RELEASE}>
+				$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_DEFINITION_DEBUG}
+						,${${target_name}_COMPILER_DEFINITION_RELEASE}>
 			)
 		set( COMPILE_OPTION ${COMPILE_OPTION} 
 				${${target_name}_COMPILER_OPTIONS}
-				$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_OPTIONS_DEBUG},${${target_name}_COMPILER_OPTIONS_RELEASE}> 
+				$<IF:$<CONFIG:DEBUG>,${${target_name}_COMPILER_OPTIONS_DEBUG}
+						,${${target_name}_COMPILER_OPTIONS_RELEASE}> 
 			)
 		set( LINKER_OPTION ${LINKER_OPTION} 
 				${${target_name}_LINKER_DEFINITION}
-				$<IF:$<CONFIG:DEBUG>,${${target_name}_LINKER_OPTIONS_DEBUG},${${target_name}_LINKER_OPTIONS_RELEASE}>
+				$<IF:$<CONFIG:DEBUG>,${${target_name}_LINKER_OPTIONS_DEBUG}
+						,${${target_name}_LINKER_OPTIONS_RELEASE}>
 			)
 	
 	
@@ -390,9 +403,9 @@ function(manage_target_options target_name)
 		 )
 		verbose_message("Finished set compile options for ${target_name}")
 		
-		target_link_libraries(${target_name} PRIVATE  
-			$<BUILD_INTERFACE:project_global_warnings>
-		)
+		##target_link_libraries(${target_name} PRIVATE  
+		##	$<BUILD_INTERFACE:project_global_warnings>
+		##)
 		verbose_message("Finished set project warning for ${target_name}")
 	endif()
 	
@@ -422,17 +435,18 @@ function(manage_target_options target_name)
 		PUBLIC_HEADER DESTINATION
 			${CMAKE_INSTALL_INCLUDEDIR}
 		)
-
-	install(
-		EXPORT 
-			${target_name}Targets
-		FILE		
-			${target_name}Targets.cmake
-		NAMESPACE
-			${target_name}::
-		DESTINATION
-			${CMAKE_INSTALL_LIBDIR}/cmake/${target_name}
-		)
+	
+	#Below doesn't work with header only lib
+	#install(
+	#	EXPORT 
+	#		${target_name}Targets
+	#	FILE		
+	#		${target_name}Targets.cmake
+	#	NAMESPACE
+	#		${target_name}::
+	#	DESTINATION
+	#		${CMAKE_INSTALL_LIBDIR}/cmake/${target_name}
+	#	)
 	
 	# Quick `ConfigVersion.cmake` creation
 	#write_basic_package_version_file(

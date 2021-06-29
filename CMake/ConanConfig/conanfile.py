@@ -2,7 +2,7 @@ from conans import ConanFile, CMake
 
 class RequirementConan(ConanFile):
    settings = "os", "compiler", "build_type", "arch"
-   requires = "ssdl/2.0.14","freetype/2.10.0","glew/2.2.0","gtest/1.8.1","glm/0.9.9.8" # comma-separated list of requirements
+   requires = "sdl/2.0.14","freetype/2.10.0","glew/2.2.0","gtest/1.8.1","glm/0.9.9.8" # comma-separated list of requirements
    generators = "cmake_multi"
    default_options = {"sdl2:shared": True, "glew:shared" : False, "gtest:build_gmock": True, "gtest:shared" :False}
 

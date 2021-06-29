@@ -17,7 +17,7 @@ jobs:
   build: 
     strategy:
        matrix:
-          os: [ubuntu-latest]
+          os: [ubuntu-18.04]
           compiler: [gcc]
     env: 
       CXX: ${{ matrix.compiler }}
@@ -37,6 +37,7 @@ jobs:
         pip install conan
         pip install conan_package_tools
         export PATH=$PATH:/home/runner/.local/bin
+        conan profile update settings.compiler.libcxx=libstdc++11 default
 
     - name: configure
       run: cmake -B build -DCMAKE_INSTALL_PREFIX=./install -DCMAKE_BUILD_TYPE=Release

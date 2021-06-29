@@ -30,9 +30,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDECY ofFile )
+set(${PROJECT_NAME}_LINKER_DEPENDENCY ofFile )
 
 manage_target_options(${PROJECT_NAME}  )
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Library")
 
 #you can still now do things like :
 #target_link_libraries(${PROJECT_NAME}  CONAN_PKG::Thot)

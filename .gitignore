@@ -1,11 +1,27 @@
+*~
+++*
+.vs/
 [Bb]uild/*
-[Bb]uild_debug/*
+[Bb]uild_*/*
 [Bb]uild_release/*
 CMakeCache.*
 CMakeFiles/*
 [Dd]ocs/*
 [Tt]esting/*
 [Ii]nstall/*
+[Ii]nstall_*/*
+
+conantest/newlib/*
+tags
+testAll.xml
+coverage.xml
+tests.xml
+make.log
+valgrind.xml
+sonar-project.properties
+cppcheck-result.xml
+conanfile.txt.junk
+
 
 ### VisualStudioCode ###
 .vscode/*

@@ -229,7 +229,7 @@ endif()
 If your library/batch is dependent from anither, you can add the dependency like this :
 
 ```cmake
-set(${PROJECT_NAME}_LINKER_DEPENDECY CONAN_PKG::glm libCamera )
+set(${PROJECT_NAME}_LINKER_DEPENDENCY CONAN_PKG::glm libCamera )
 ```
 Here , in the exemple, my lib will be dependent of the glm Conan package and from the libCamera .
 

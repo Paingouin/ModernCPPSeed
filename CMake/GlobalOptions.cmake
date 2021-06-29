@@ -1,18 +1,40 @@
 #Option are set in this file by default. You can change it with the -D argument in the cmake command line
 
 
-SET(CMAKE_SKIP_BUILD_RPATH TRUE)
+#RPATH are like a LD_LIBRARY_PATH env variable inside the binary 
+#(in linux, this env variable is prioritary compared to LD_LIBRARY_PATH
+
+# use, i.e. don't skip the full RPATH for the build tree
+set(CMAKE_SKIP_BUILD_RAPTH FALSE)
+# when building, don't use the install RPATH already (but later on when installing)
+SET(CMAKE_BUILD_WITH_INSTALL_RPATH FALSE)
+# the RPATH to be used when installing
+SET(CMAKE_INSTALL_RPATH "")
+# don't add the automatically determined parts of the RPATH which point to directories outside the build tree to the install RPATH
 SET(CMAKE_INSTALL_RPATH_USE_LINK_PATH FALSE)
+
+
+#Specify to use folder to manage targets (in visual for example)
+set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "_CMakePredefinedTargets")
+
+
+#Specify to use fodler to manage targets (in visual for example)
+#set_property(GLOBAL PROPERTY USE_FOLDERS ON)
+#set_property(GLOBAL PROPERTY PREDEFINED_TARGETS_FOLDER "_CMakePredefinedTargets")
 
 #Compile
 option(WARNINGS_AS_ERRORS "Enable the warning as error for all project" OFF)
 
 #package
-option(ENABLE_CONAN "Enable the Conan package manager for all project." OFF)
+option(ENABLE_CONAN "Enable the Conan package manager for all project." ON)
 #option(ENABLE_VCPKG "Enable the Conan package manager for all project." OFF)
 
 #unit test : for the moment, it's per project
-#option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." OFF)
+option(ENABLE_UNIT_TESTING "Enable unit tests for all projects (from the `test` subfolder)." OFF)
+
+# Testing Part
+option(PACKAGE_TESTS "Build the NewLib tests" ON)
 
 #option(USE_GTEST "Use GTEST  for creating unit tests." ON)
 #option(${PROJECT_NAME}_USE_GOOGLE_MOCK "Use the GoogleMock project for extending the unit tests." OFF)
@@ -155,12 +177,11 @@ else()
 	set(CMAKE_LIBRARY_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/bin/${CMAKE_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/) #we want the dynamic .so to be in the same directory as the executables
 	set(CMAKE_ARCHIVE_OUTPUT_DIRECTORY	${CMAKE_BINARY_DIR}/lib/${CMAKE_SYSTEM_NAME}/${CMAKE_BUILD_TYPE}/)
 endif()
+set(CMAKE_INSTALL_LIBDIR 			lib)
+set(CMAKE_INSTALL_BINDIR			bin)
+set(CMAKE_INSTALL_INCLUDEDIR	include)
 
 
-#set(VS_DEBUGGER_WORKING_DIRECTORY   ${CMAKE_BINARY_DIR}/bin/${CMAKE_BUILD_TYPE})
-#set(CMAKE_INSTALL_LIBDIR 			lib)
-#set(CMAKE_INSTALL_BINDIR			bin)
-#set(CMAKE_INSTALL_INCLUDEDIR		include)
 
 ##if (${FORCE_COLORED_OUTPUT})
 #    if ("${CMAKE_CXX_COMPILER_ID}" STREQUAL "GNU")

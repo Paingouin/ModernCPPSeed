@@ -39,8 +39,10 @@ function(configure_global_warnings)
       /w14906 # string literal cast to 'LPWSTR'
       /w14928 # illegal copy-initialization; more than one user-defined
               # conversion has been implicitly applied
-      /permissive- # standards conformance mode for MSVC compiler.
+      /permissive- # standards conformance mode for MSVC compiler. (Disable langage extensions)
   )
+  		#Not recommended
+		#/Wall - Also warns on files included from the standard library, so it's not very useful and creates too many extra warnin
 
   set(CLANG_WARNINGS
       -Wall
@@ -55,14 +57,19 @@ function(configure_global_warnings)
       -Wunused         # warn on anything being unused
       -Woverloaded-virtual # warn if you overload (not override) a virtual
                            # function
-      -Wpedantic   # warn if non-standard C++ is used
+      -Wpedantic   #(all versions of GCC, Clang >= 3.2) warn if non-standard C++ is used  (Disable langage extensions)
       -Wconversion # warn on type conversions that may lose data
-      -Wsign-conversion  # warn on sign conversions
+      -Wsign-conversion  #  (Clang all versions, GCC >= 4.3) warn on sign conversions
       -Wnull-dereference # warn if a null dereference is detected
-      -Wdouble-promotion # warn if float is implicit promoted to double
+
+      -Wdouble-promotion #(GCC >= 4.6, Clang >= 3.8) warn if float is implicit promoted to double
       -Wformat=2 # warn on security issues around functions that format output
                  # (ie printf)
+	  # -Wlifetime (only special branch of Clang currently) shows object lifetime issues
+	  #-Weverything   but need disable some of the warning
   )
+  
+
 
   if ((${${project_name}_WARNINGS_AS_ERRORS}) OR (WARNINGS_AS_ERRORS))
     set(CLANG_WARNINGS ${CLANG_WARNINGS} -Werror)
@@ -71,13 +78,14 @@ function(configure_global_warnings)
 
   set(GCC_WARNINGS
       ${CLANG_WARNINGS}
-      -Wmisleading-indentation # warn if indentation implies blocks where blocks
+      -Wmisleading-indentation #  (only in GCC >= 6.0)warn if indentation implies blocks where blocks
                                # do not exist
-      -Wduplicated-cond # warn if if / else chain has duplicated conditions
-      -Wduplicated-branches # warn if if / else branches have duplicated code
-      -Wlogical-op   # warn about logical operations being used where bitwise were
+      -Wduplicated-cond #  (only in GCC >= 6.0)warn if if / else chain has duplicated conditions
+      -Wduplicated-branches # (only in GCC >= 7.0) warn if if / else branches have duplicated code
+      -Wlogical-op   #(only in GCC)  warn about logical operations being used where bitwise were
                      # probably wanted
-      -Wuseless-cast # warn if you perform a cast to the same type
+	 # -Wnull-dereference (only in GCC >= 6.0) warn if a null dereference is detected
+      -Wuseless-cast # (only in GCC >= 4.8)  warn if you perform a cast to the same type
   )
 
   if(MSVC)

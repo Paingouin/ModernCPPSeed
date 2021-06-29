@@ -31,15 +31,19 @@ if(PROJECT_SOURCE_DIR STREQUAL PROJECT_BINARY_DIR)
   message(FATAL_ERROR "In-source builds not allowed. Please make a new directory (called a build directory) and run CMake from there.\n")
 endif()
 
-	
 if(ENABLE_UNIT_TESTING)
 	enable_testing()
 	verbose_message("***********Test are enabled**********")
 endif()
-
 	
 #Load ConanConfiguration
 include(CMake/ConanConfig.cmake)
+
+#Load RessourceFolder
+#add_custom_target(copy_ressources
+#    COMMAND ${CMAKE_COMMAND} -P ${CMAKE_SOURCE_DIR}/CMake/copyRessources.cmake ${CMAKE_RUNTIME_OUTPUT_DIRECTORY}
+#)
+
 
 #Load extlib if enabled
 #add_subdirectory(ExtLib)
@@ -48,12 +52,11 @@ include(CMake/ConanConfig.cmake)
 add_subdirectory(Libraries)
 add_subdirectory(Batches)
 
-
 #if we want to retrieve source from a svn repository, for exemple
 get_source_from_svn_repo()
 
 
-#TODO : change to PAREN_SCOPE variable.
+#TODO : change to PARENT_SCOPE variable.
 get_directory_property(targets BUILDSYSTEM_TARGETS)
 MESSAGE(STATUS "List Targets ${targets}")
 

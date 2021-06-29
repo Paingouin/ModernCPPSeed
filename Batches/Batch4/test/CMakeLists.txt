@@ -9,6 +9,7 @@ set( ${PROJECT_NAME}_PUBLIC_HEADERS
 	
 
 set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
+set(${PROJECT_NAME}_TO_INSTALL ON )
 
 set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
 
@@ -29,9 +30,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDECY ofBatch CONAN_PKG::gtest)
+set(${PROJECT_NAME}_LINKER_DEPENDENCY ofBatch CONAN_PKG::gtest)
 
 manage_target_options(${PROJECT_NAME}  )
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Batch")
 
 #We need to specify that this is a test
 add_test(

@@ -9,10 +9,9 @@ set( ${PROJECT_NAME}_PUBLIC_HEADERS
 	
 
 set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
+set(${PROJECT_NAME}_TO_INSTALL ON )
 
 set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
-
-
 set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
 
 #You can also add your own compiler/linker option and definition
@@ -32,9 +31,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDECY ofHeaderOnly )
+set(${PROJECT_NAME}_LINKER_DEPENDENCY ofHeaderOnly )
 
 manage_target_options(${PROJECT_NAME}  )
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Batch")
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

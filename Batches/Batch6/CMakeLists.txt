@@ -32,7 +32,7 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 endif()
 
 set(${PROJECT_NAME}_LINKER_DEPENDENCY 
-				CONAN_PKG::sdl2  
+				CONAN_PKG::sdl
 				CONAN_PKG::freetype 
 				CONAN_PKG::glm
 				CONAN_PKG::glew

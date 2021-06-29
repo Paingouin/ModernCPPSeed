@@ -20,7 +20,8 @@ jobs:
           os: [ubuntu-18.04]
           compiler: [gcc]
     env: 
-      CXX: ${{ matrix.compiler }}
+      CC: gcc
+      CXX: g++
           
     runs-on: ${{ matrix.os }}
     if: "!contains(github.event.head_commit.message, '[skip ci]') && !contains(github.event.head_commit.message, '[ci skip]')"

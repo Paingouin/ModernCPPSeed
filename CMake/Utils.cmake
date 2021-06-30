@@ -99,8 +99,7 @@ function(manage_target_options target_name)
 		#endif()
 	endif()
 	
-	set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
-	
+
 
 	if(${${target_name}_BUILD_HEADERS_ONLY})
 		target_compile_features(${target_name} INTERFACE cxx_std_11)
@@ -120,6 +119,9 @@ function(manage_target_options target_name)
 		$<INSTALL_INTERFACE:${CMAKE_INSTALL_INCLUDEDIR}>	
 		)
 		verbose_message("Add target include directories from ${${target_name}_SOURCE_DIR}")
+		
+		set_target_properties(${PROJECT_NAME} PROPERTIES DEBUG_POSTFIX "d")
+		
 	endif()
 	
 	if(${${target_name}_INSTALL_HEADER} ) 

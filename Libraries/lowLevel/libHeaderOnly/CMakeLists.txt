@@ -30,7 +30,5 @@ endif()
 
 set(${PROJECT_NAME}_LINKER_DEPENDENCY)
 manage_target_options(${PROJECT_NAME})
-set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Library")
-
 #you can still now do things like :
 #target_link_libraries(${PROJECT_NAME} PUBLIC CONAN_PKG::Thot)

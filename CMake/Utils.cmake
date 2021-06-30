@@ -217,12 +217,12 @@ function(manage_target_options target_name)
 			)
 			
 			
-		install( 
-				FILES 
-					${CMAKE_SOURCE_DIR}/CMake/ConanConfig/ConanRecipe/conanfile.py
-			    DESTINATION
-					${CMAKE_INSTALL_PREFIX}
-			)
+		   #install( 
+			#	FILES 
+			#		${CMAKE_SOURCE_DIR}/CMake/ConanConfig/ConanRecipe/conanfile.py
+			#    DESTINATION
+			#		${CMAKE_INSTALL_PREFIX}
+			#)
 
 			
 			### This makes the project importable from the install directory

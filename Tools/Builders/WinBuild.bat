@@ -1,6 +1,6 @@
 @echo off
 echo ****************************************
-echo * Batch building folder creator V. 1.5 *
+echo * Executable building folder creator V. 1.5 *
 echo ****************************************
 
 REM cmake --build <build_directory> --target install --config <desired_config>

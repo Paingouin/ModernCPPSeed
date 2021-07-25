@@ -1,10 +1,10 @@
-project (Batch3 CXX)
+project (Executable3 CXX)
 
 set( ${PROJECT_NAME}_SOURCES
-		Batch3Main.cpp
+		Executable3Main.cpp
 	)
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Batch3.h
+		Executable3.h
 	)
 	
 
@@ -34,7 +34,7 @@ endif()
 set(${PROJECT_NAME}_LINKER_DEPENDENCY ofHeaderOnly )
 
 manage_target_options(${PROJECT_NAME}  )
-set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Batch")
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Executable")
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

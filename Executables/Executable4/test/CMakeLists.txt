@@ -1,10 +1,10 @@
-project (Batch6 CXX)
+project (Executable4Test CXX)
 
 set( ${PROJECT_NAME}_SOURCES
-		Batch6Main.cpp
+		Executable4_TestMain.cpp
 	)
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Batch6.h
+		../Executable4.h
 	)
 	
 
@@ -12,7 +12,6 @@ set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
 set(${PROJECT_NAME}_TO_INSTALL ON )
 
 set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
-set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
 
 #You can also add your own compiler/linker option and definition
 if(MSVC)
@@ -31,14 +30,18 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDENCY 
-				CONAN_PKG::freetype 
-				CONAN_PKG::glm
-				CONAN_PKG::glew
-		)
+set(${PROJECT_NAME}_LINKER_DEPENDENCY ofExecutable CONAN_PKG::gtest)
 
 manage_target_options(${PROJECT_NAME}  )
-set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Batch")
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Tests Executables")
+
+#We need to specify that this is a test
+add_test(
+  NAME     
+    ${PROJECT_NAME}
+  COMMAND
+    ${PROJECT_NAME}
+)
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

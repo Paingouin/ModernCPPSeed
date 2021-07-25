@@ -1,10 +1,10 @@
-project (Batch_HotLoading_Exemple CXX)
+project (Executable4 CXX)
 
 set( ${PROJECT_NAME}_SOURCES
-		Batch5Main.cpp
+		Executable4Main.cpp
 	)
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Batch5.h
+		Executable4.h
 	)
 	
 
@@ -12,7 +12,7 @@ set(${PROJECT_NAME}_BUILD_EXECUTABLE ON )
 set(${PROJECT_NAME}_TO_INSTALL ON )
 
 set(${PROJECT_NAME}_WARNINGS_AS_ERRORS OFF)
-set(${PROJECT_NAME}_ENABLE_UNIT_TESTING OFF)
+set(${PROJECT_NAME}_ENABLE_UNIT_TESTING ON)
 
 #You can also add your own compiler/linker option and definition
 if(MSVC)
@@ -31,10 +31,10 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDENCY ofHotLoad )
+set(${PROJECT_NAME}_LINKER_DEPENDENCY ofExecutable )
 
 manage_target_options(${PROJECT_NAME}  )
-set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Batch")
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Executable")
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

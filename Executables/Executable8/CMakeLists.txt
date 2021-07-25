@@ -1,10 +1,10 @@
-project (Batch8 CXX)
+project (Executable8 CXX)
 
 set( ${PROJECT_NAME}_SOURCES
-		Batch8Main.cpp
+		Executable8Main.cpp
 	)
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Batch8.h
+		Executable8.h
 	)
 	
 
@@ -38,7 +38,7 @@ set(${PROJECT_NAME}_LINKER_DEPENDENCY
 		)
 
 manage_target_options(${PROJECT_NAME}  )
-set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Batch")
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Executable")
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

@@ -4,7 +4,7 @@ if(${CMAKE_VERSION} VERSION_LESS 3.14)
     cmake_policy(VERSION ${CMAKE_MAJOR_VERSION}.${CMAKE_MINOR_VERSION})
 endif()
 
-project(Batches   VERSION 0.1.0
+project(MyProjects  VERSION 0.1.0
 				  DESCRIPTION  "Modern CPPSeed"
                   LANGUAGES    CXX
 		)
@@ -50,7 +50,7 @@ include(CMake/ConanConfig.cmake)
 
 
 add_subdirectory(Libraries)
-add_subdirectory(Batches)
+add_subdirectory(Executables)
 
 #if we want to retrieve source from a svn repository, for exemple
 get_source_from_svn_repo()

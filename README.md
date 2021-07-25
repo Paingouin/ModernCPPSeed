@@ -13,7 +13,7 @@ I will explain everything you need to know, step by step, to have a cozy space t
 
 The principle is that you only have to add your folder with your .cpp/.h files, choose if you want an executable/a lib, your dependencies and that's it. 
 
-NOTE : what I call a batch is an executable, and a library is a static or dynamic library used by the batches.
+NOTE : a library is either a static or dynamic library used by the executables.
 
 ## How CMake works
 You can skip this section if you know how to invoke cmake and your compiler.
@@ -60,9 +60,9 @@ First, at the root of the project, you have a CMakeList.txt, this one is used to
 * name our project
 * read the Global Options
 * launch Conan
-* read the others CmakeLists.txt (the one of our batches/libraries)
+* read the others CmakeLists.txt (the one of our Executables/libraries)
   * First it will read the CmakeList.txt inside the folder Libraries
-  * Then it will read the CmakeList.txt inside the folder Batches
+  * Then it will read the CmakeList.txt inside the folder Executables
 
 
 Here's a schema of the structure of the model : 
@@ -70,16 +70,16 @@ Here's a schema of the structure of the model :
 ```
 ModernCPPSeed
 ║
-╚╦═ Batches    
- ║  ╠═ Batch_1
+╚╦═ Executables    
+ ║  ╠═ Executable_1
  ║  ║  ╠═  .cpp and .h files
  ║  ║  ╚═  CMakeLists.txt --where  you configure your exe
  ║  ║
- ║  ╠═ Batch_2
+ ║  ╠═ Executable_2
  ║  ║  ╠═  .cpp and .h files
  ║  ║  ╚═  CMakeLists.txt
  ║  ║
- ║  ╚═  CMakeLists.txt --where you add the batches you want to add, with add_subdirectory
+ ║  ╚═  CMakeLists.txt --where you add the Executables you want to add, with add_subdirectory
  ║
  ╠═ Libraries
  ║  ╠═ Library_1
@@ -106,7 +106,7 @@ ModernCPPSeed
  ╚═ CMakeLists.txt --The main CMakeLists.txt (the one read in first by Cmake) 
  
 ```
-In the folder Batch, I to put my executables , each batch represent an executable binary (but nothing prevent you to make libraries into these folder)
+In the folder Executable, I to put my executables , each Executable represent an executable binary (but nothing prevent you to make libraries into these folder)
 In the folder Libraries, I prefer to put all my self-made Libraries, and libraries who I have the source file like headers only libraries. (nothing prevent you to make executable inside this folder)
 
 
@@ -120,7 +120,7 @@ The binaires will be put in a Build\bin\SYSTEM_NAME\BUILD_TYPE and the statc lib
 
 Global option can be found in Cmake\GlobalOptions.cmake
 
-These impact all the batches/library.
+These impact all the Executables/library.
 
 | Options       |    Description        | Value possible  |
 | ------------- |-------------| -----|
@@ -146,14 +146,14 @@ These impact all the batches/library.
 
 ## Global compile Options
 
-There's a Cmake\GlobalCompileOption.cmake file where you can add all the options that will be use by all the batches and libraries.
+There's a Cmake\GlobalCompileOption.cmake file where you can add all the options that will be use by all the Executables and libraries.
 
 
 
-## Batches and library option.
+## Executables and library option.
 This is what you have to configure the most 
 
-Add a cmakeList in the folder Batches or Libraries
+Add a cmakeList in the folder Executables or Libraries
 
 Modify the CmakeList.txt
 
@@ -161,27 +161,27 @@ you habe to set theses option in terms of you want to use.
 
 First you want to name your executable/library/project.
 ```cmake
-project (BatchNAME CXX)
+project (ExecutableNAME CXX)
 ```
-Replace "BatchName" with what you want to use.
+Replace "ExecutableName" with what you want to use.
 
 You then want to add the headers of your programm  :
 ```cmake
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Batch4.h
+		Executable4.h
 	)
 ```
 You can put them in an other folder like this :
 ```cmake
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Include/Batch4.h
+		Include/Executable4.h
 	)
 ```
 
 You can also add them as private header like this: 
 ```cmake
 set( ${PROJECT_NAME}_PRIVATE_HEADERS
-		Batch4.h
+		Executable4.h
 	)
 ```
 
@@ -226,7 +226,7 @@ endif()
 ```
 
 
-If your library/batch is dependent from anither, you can add the dependency like this :
+If your library/Executable is dependent from anither, you can add the dependency like this :
 
 ```cmake
 set(${PROJECT_NAME}_LINKER_DEPENDENCY CONAN_PKG::glm libCamera )
@@ -238,7 +238,7 @@ at the end , add the function that will manage all the options :
 manage_target_options(${PROJECT_NAME})
 ```
 
-## Step by step tutorial : Configure everything and add your own library and batches.
+## Step by step tutorial : Configure everything and add your own library and Executables.
 ### Root CMakeList.exe
 
 ### CMake/GlobalOption
@@ -247,7 +247,7 @@ manage_target_options(${PROJECT_NAME})
 
 ### Libraries folder
 
-### Batches folder
+### Executables folder
 
 ### Invoke Cmake
 
@@ -258,7 +258,7 @@ manage_target_options(${PROJECT_NAME})
 
 ## Test framework
 
-You can add your own sub-batches/sub-library by adding a test folder inside your own batch : 
+You can add your own sub-Executables/sub-library by adding a test folder inside your own Executable : 
 
 
 ## Note
@@ -269,7 +269,7 @@ A blog from a fellow roguelikedev who made a good summarry: https://www.gridsage
 Inside Tools/Builders
 
 ## Hot-Loading (Windows Only for the moment)
-To test the hot-loading, compile the batch-hot-loading, launch it manually (in the folder build/bin/Debug) and let it run.
+To test the hot-loading, compile the Executable-hot-loading, launch it manually (in the folder build/bin/Debug) and let it run.
 Open the project ofHotLoad
 Change the content of the method loadedFunction and build the project.
 The changes should appear.

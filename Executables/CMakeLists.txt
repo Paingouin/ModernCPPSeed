@@ -1,0 +1,13 @@
+add_subdirectory(Executable1)
+add_subdirectory(Executable2)
+add_subdirectory(Executable3)
+add_subdirectory(Executable4)
+
+if(ENABLE_CONAN)
+	if(WIN32)
+		add_subdirectory(Executable5)
+	endif()
+	add_subdirectory(Executable6)
+	add_subdirectory(Executable7)
+	add_subdirectory(Executable8)
+endif()	

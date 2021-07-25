@@ -1,10 +1,10 @@
-project (Batch2 CXX)
+project (Executable6 CXX)
 
 set( ${PROJECT_NAME}_SOURCES
-		Batch2Main.cpp
+		Executable6Main.cpp
 	)
 set( ${PROJECT_NAME}_PUBLIC_HEADERS
-		Batch2.h
+		Executable6.h
 	)
 	
 
@@ -31,10 +31,14 @@ elseif(CMAKE_CXX_COMPILER_ID STREQUAL "GNU")
 
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDENCY ofFile ofInput)
+set(${PROJECT_NAME}_LINKER_DEPENDENCY 
+				CONAN_PKG::freetype 
+				CONAN_PKG::glm
+				CONAN_PKG::glew
+		)
 
-manage_target_options(${PROJECT_NAME})
-set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Batch")
+manage_target_options(${PROJECT_NAME}  )
+set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Executable")
 
 
 #  target_compile_definitions(${PROJECT_NAME} PRIVATE   NEWLIB_THREAD_SAFE  )  #No need for  the -D

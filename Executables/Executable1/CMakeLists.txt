@@ -47,7 +47,7 @@ set(${PROJECT_NAME}_LINKER_OPTIONS_DEBUG "")
 set(${PROJECT_NAME}_LINKER_OPTIONS_RELEASE "")
 endif()
 
-set(${PROJECT_NAME}_LINKER_DEPENDENCY)
+set(${PROJECT_NAME}_LINKER_DEPENDENCY  ofFile)
 
 manage_target_options(${PROJECT_NAME})
 set_target_properties(${PROJECT_NAME}  PROPERTIES FOLDER "Executable")

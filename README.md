@@ -18,11 +18,11 @@ NOTE : a library is either a static or dynamic library used by the executables.
 ## How CMake works
 You can skip this section if you know how to invoke cmake and your compiler.
 
-Cmake is a build system generator. It is used to create all the things  the compilers/linkers etc.. will need to create the wanted binaries.
+Cmake is a build system generator. It is used to create all the things the compilers/linkers etc.. will need to create the wanted binaries.
 
 When invoking CMake, it will read the *CMakeLists.txt* files in our project, set all the settings/paths he will give to our tools and voilà.
 
-To use cmake , you will need to have one compiler toolkit installed on the plateform you will run cmake and build your programm. (MSVC or GNU GCC for exemple)
+To use cmake , you will need to have one compiler toolkit installed on the plateform you will run cmake and build your programm. (MSVC or Make + GNU GCC for exemple)
 
 Cmake is generally used by command line, but I will show the generic way to use it.
 
@@ -108,8 +108,6 @@ ModernCPPSeed
 ```
 In the folder Executable, I to put my executables , each Executable represent an executable binary (but nothing prevent you to make libraries into these folder)
 In the folder Libraries, I prefer to put all my self-made Libraries, and libraries who I have the source file like headers only libraries. (nothing prevent you to make executable inside this folder)
-
-
 
 
 

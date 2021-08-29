@@ -122,8 +122,8 @@ These impact all the Executables/library.
 
 | Options       |    Description        | Value possible  |
 | ------------- |-------------| -----|
-|CMAKE_SKIP_BUILD_RPATH |  | TRUE or FALSE, default TRUE |
-|CMAKE_INSTALL_RPATH_USE_LINK_PATH |  | TRUE or FALSE , default FALSE|
+|CMAKE_SKIP_BUILD_RPATH | The build process will not change the RPATH of the executable | TRUE or FALSE, default TRUE |
+|CMAKE_INSTALL_RPATH_USE_LINK_PATH | The install process may change the RPATH of the executable| TRUE or FALSE , default FALSE|
 |WARNINGS_AS_ERRORS | Enable the warning as error for all project | ON or OFF , default OFF|
 |ENABLE_CONAN | Enable the warning as error for all project. | ON or OFF , default ON|
 |ENABLE_CLANG_TIDY | Enable static analysis with Clang-Tidy. | ON or OFF , default OFF|
@@ -138,14 +138,9 @@ These impact all the Executables/library.
 
 
 
-
-
-
-
 ## Global compile Options
 
 There's a Cmake\GlobalCompileOption.cmake file where you can add all the options that will be use by all the Executables and libraries.
-
 
 
 ## Executables and library option.
